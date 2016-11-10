@@ -1,0 +1,34 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
+    }
+}
+
+group 'com.github.yoojia'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.jetbrains:annotations-java5:15.0'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+ext{
+    projVersion = '0.1.4'
+    projArtivactId = 'next-lang'
+    projName = 'NextLang'
+    projDesc = 'NextLang: A Toolkit library for JVM'
+    projURL = "https://github.com/yoojia/NextLang"
+    projVCS = "https://github.com/yoojia/NextLang.git"
+}
+
+apply from: 'publish.gradle'

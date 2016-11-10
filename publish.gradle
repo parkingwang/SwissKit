@@ -1,0 +1,121 @@
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+group 'com.parkingwang'
+version projVersion
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+def pomConfig = {
+
+    name projName
+    url projURL
+    inceptionYear '2016'
+
+    scm { url projVCS }
+
+    developers {
+        developer {
+            id 'yoojia'
+            name 'Yoojia Chen'
+            email 'yoojiachen@gmail.com'
+            url 'https://yoojia.me'
+        }
+    }
+
+}
+
+publishing {
+    publications {
+        MavenJava(MavenPublication) {
+            from components.java
+            groupId 'com.parkingwang'
+            artifactId projArtivactId
+            version projVersion
+
+            artifact sourcesJar
+            artifact javadocJar
+
+            pom.withXml {
+                asNode().children().last() + pomConfig
+                asNode().appendNode("description", projDesc)
+                def licencesNode = asNode().appendNode('licenses')
+                def licenseNode = licencesNode.appendNode('license')
+                licenseNode.appendNode('name', 'The Apache Software License, Version 2.0')
+                licenseNode.appendNode('url', 'http://www.apache.org/licenses/LICENSE-2.0.txt')
+                licenseNode.appendNode('distribution', 'repo')
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+javadoc {
+    options{
+        encoding "UTF-8"
+        charSet 'UTF-8'
+        author true
+        version true
+        links "http://docs.oracle.com/javase/7/docs/api"
+        title project.name
+    }
+}
+
+artifacts {
+    archives sourcesJar, javadocJar
+}
+
+def getPropOrEnv(String key) {
+    return project.hasProperty(key) ? project.property(key) : System.getenv(key)
+}
+
+bintray {
+    user = getPropOrEnv('bintrayUser')
+    key = getPropOrEnv('bintrayApiKey')
+    publications = ['MavenJava']
+
+    dryRun = false
+    publish = true
+
+    pkg {
+        repo = 'maven'
+        name = projName
+        userOrg = 'yoojia'
+        licenses = ['Apache-2.0']
+        vcsUrl = projVCS
+        labels = ['Java', "Lang", 'Toolkit']
+
+        publicDownloadNumbers = true
+
+        version {
+            name = projVersion
+            desc = projDesc
+            vcsTag = projVersion
+            attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
+
+            gpg {
+                sign = true
+            }
+
+            mavenCentralSync {
+                sync = false
+                user = getPropOrEnv('SONATYPE_USER')
+                password = getPropOrEnv('SONATYPE_PASS')
+                close = '1'
+            }
+        }
+
+    }
+}
