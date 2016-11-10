@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="GradleLocalSettings">
-    <option name="modificationStamps">
-      <map>
-        <entry key="$PROJECT_DIR$/../NextWebKotlin" value="16243412257721" />
-        <entry key="$PROJECT_DIR$/../connector" value="7383362319222" />
-        <entry key="$PROJECT_DIR$" value="4436092048585" />
-        <entry key="$PROJECT_DIR$/../next-crawler" value="7384362480689" />
-        <entry key="$PROJECT_DIR$/../next-events" value="2955294837626" />
-        <entry key="$PROJECT_DIR$/../next-lang" value="4435730643483" />
-        <entry key="$PROJECT_DIR$/../stack" value="10349559972296" />
-        <entry key="$PROJECT_DIR$/../survey" value="4430566409199" />
-      </map>
-    </option>
-    <option name="externalProjectsViewState">
-      <projects_view />
-    </option>
-  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>

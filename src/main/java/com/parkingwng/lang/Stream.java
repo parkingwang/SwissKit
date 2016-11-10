@@ -12,35 +12,35 @@ import java.util.List;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 0.1
  */
-final public class S2<E> {
+final public class Stream<E> {
 
     private Collection<E> data;
 
-    private S2(){}
+    private Stream(){}
 
-    private S2(Collection<E> data){
+    private Stream(Collection<E> data){
         this.data = data;
     }
 
-    public static <T> S2<T> from(T...items) {
-        final S2<T> s2 = new S2<>(Arrays.asList(items));
+    public static <T> Stream<T> from(T...items) {
+        final Stream<T> stream = new Stream<>(Arrays.asList(items));
         for (T item : items) {
-            s2.data.add(item);
+            stream.data.add(item);
         }
-        return s2;
+        return stream;
     }
 
     @NotNull
-    public S2<E> filter(Filter<E> filter) {
+    public Stream<E> filter(Filter<E> filter) {
         data = filter(data, filter);
         return this;
     }
 
     @NotNull
-    public <O> S2<O> map(Transformer<E, O> transformer) {
-        final S2<O> s2 = new S2<>();
-        s2.data = map(data, transformer);
-        return s2;
+    public <O> Stream<O> map(Transformer<E, O> transformer) {
+        final Stream<O> stream = new Stream<>();
+        stream.data = map(data, transformer);
+        return stream;
     }
 
     public E firstOrNull(){

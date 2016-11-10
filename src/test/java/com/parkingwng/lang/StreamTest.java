@@ -11,11 +11,11 @@ import java.util.List;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0
  */
-public class S2Test {
+public class StreamTest {
 
     @Test
     public void test(){
-        final List<String> output = S2.from(1,2,3,4,5,6,7,8,9)
+        final List<String> output = Stream.from(1,2,3,4,5,6,7,8,9)
                 .filter(new Filter<Integer>() {
                     @Override
                     public boolean filter(Integer arg) {
