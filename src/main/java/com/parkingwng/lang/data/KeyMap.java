@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
- * @since 0.1
+ * @since 1.0
  */
 public class KeyMap implements Map<String, Object> {
 

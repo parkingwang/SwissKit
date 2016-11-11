@@ -4,7 +4,7 @@ import java.io.*;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
- * @since 0.1
+ * @since 1.0
  */
 final public class StreamKit {
 
