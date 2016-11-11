@@ -92,7 +92,7 @@ bintray {
     pkg {
         repo = 'maven'
         name = projName
-        userOrg = 'yoojia'
+        userOrg = 'parkingwang'
         licenses = ['Apache-2.0']
         vcsUrl = projVCS
         labels = ['Java', "Lang", 'Toolkit']
