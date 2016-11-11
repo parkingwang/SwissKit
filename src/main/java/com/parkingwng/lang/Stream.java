@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
- * @since 0.1
+ * @since 1.0
  */
 final public class Stream<E> {
 
@@ -22,12 +22,16 @@ final public class Stream<E> {
         this.data = data;
     }
 
-    public static <T> Stream<T> from(T...items) {
+    public static <T> Stream<T> of(T...items) {
         final Stream<T> stream = new Stream<>(Arrays.asList(items));
         for (T item : items) {
             stream.data.add(item);
         }
         return stream;
+    }
+
+    public static <T> Stream<T> listOf(Collection<T> data){
+        return new Stream<T>(data);
     }
 
     @NotNull

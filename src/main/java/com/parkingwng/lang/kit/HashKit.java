@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
- * @since 0.1.2
+ * @since 1.0
  */
 final public class HashKit {
 
