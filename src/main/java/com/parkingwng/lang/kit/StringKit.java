@@ -12,6 +12,14 @@ final public class StringKit {
 
     private StringKit() {}
 
+    public static boolean isEmpty(CharSequence str) {
+        return str == null || str.length() == 0;
+    }
+
+    public static boolean isNotEmpty(CharSequence str) {
+        return !isEmpty(str);
+    }
+
     /**
      * 小量文本替换
      * @param src 源数据
