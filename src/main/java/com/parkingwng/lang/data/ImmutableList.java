@@ -36,15 +36,10 @@ public class ImmutableList<E> implements RandomAccess {
         return indexOf(o) >= 0;
     }
 
-    @NotNull
-    public Iterator<E> iterator() {
-        return new Itr();
-    }
-
     public int lastIndexOf(Object o) {
         if (o == null) {
             for (int i = mSize -1; i >= 0; i--)
-                if (mElementData[i]==null)
+                if (mElementData[i] == null)
                     return i;
         } else {
             for (int i = mSize -1; i >= 0; i--)
@@ -57,7 +52,7 @@ public class ImmutableList<E> implements RandomAccess {
     public int indexOf(E o) {
         if (o == null) {
             for (int i = 0; i < mSize; i++)
-                if (mElementData[i]==null)
+                if (mElementData[i] == null)
                     return i;
         } else {
             for (int i = 0; i < mSize; i++)
@@ -71,7 +66,7 @@ public class ImmutableList<E> implements RandomAccess {
         return ListKit.arrayListOf(mElementData);
     }
 
-    public Object[] toArray() {
+    public E[] toArray() {
         return Arrays.copyOf(mElementData, mSize);
     }
 
@@ -90,6 +85,17 @@ public class ImmutableList<E> implements RandomAccess {
     @Override
     public Object clone() {
         return new ImmutableList<>(Arrays.copyOf(mElementData, mSize));
+    }
+
+    @NotNull
+    public Iterator<E> iterator() {
+        return new Itr();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <E> ImmutableList<E> listOf(Collection<E> data) {
+        final E[] array = (E[]) data.toArray();
+        return new ImmutableList<>(array);
     }
 
     /**

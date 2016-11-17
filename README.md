@@ -7,7 +7,7 @@
 为Java集合数据增加`filter`和`map`等在Java8的函数体验。演示如下：
 
 ```java
-final List<String> output = Stream.from(1,2,3,4,5,6,7,8,9)
+final List<String> output = Stream.arrayOf(1,2,3,4,5,6,7,8,9)
         .filter(new Filter<Integer>() {
             public boolean filter(Integer arg) {
                 return arg % 2 == 0;
