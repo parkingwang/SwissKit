@@ -22,12 +22,8 @@ final public class Stream<E> {
         this.data = data;
     }
 
-    public static <T> Stream<T> of(T...items) {
-        final Stream<T> stream = new Stream<>(Arrays.asList(items));
-        for (T item : items) {
-            stream.data.add(item);
-        }
-        return stream;
+    public static <T> Stream<T> arrayOf(T...items) {
+        return new Stream<>(Arrays.asList(items));
     }
 
     public static <T> Stream<T> listOf(Collection<T> data){
