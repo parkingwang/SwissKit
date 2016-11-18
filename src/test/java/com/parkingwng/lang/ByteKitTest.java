@@ -4,6 +4,7 @@ import com.parkingwng.lang.kit.ByteKit;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.nio.ByteBuffer;
 import java.util.Random;
 
 /**
@@ -15,8 +16,15 @@ public class ByteKitTest {
     final Random RANDOM = new Random();
 
     @Test
+    public void testShort(){
+        final short i = (short) RANDOM.nextInt(Integer.MAX_VALUE);
+        byte[] bi = ByteKit.fromShort(i);
+        Assert.assertEquals(i, ByteKit.toShort(bi));
+    }
+
+    @Test
     public void testInt(){
-        final int i = RANDOM.nextInt();
+        final int i = RANDOM.nextInt(Integer.MAX_VALUE);
         byte[] bi = ByteKit.fromInt(i);
         Assert.assertEquals(i, ByteKit.toInt(bi));
     }
