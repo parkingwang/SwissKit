@@ -44,7 +44,7 @@ final public class Stream<E> {
     }
 
     public E firstOrNull(){
-        if (data.isEmpty()) {
+        if (isEmpty()) {
             return null;
         }else{
             return toList().get(0);
@@ -52,11 +52,23 @@ final public class Stream<E> {
     }
 
     public E lastOrNull() {
-        if (data.isEmpty()) {
+        if (isEmpty()) {
             return null;
         }else{
             return toList().get(data.size() - 1);
         }
+    }
+
+    public boolean isEmpty(){
+        return data.isEmpty();
+    }
+
+    public boolean isNotEmpty(){
+        return !isEmpty();
+    }
+
+    public int size(){
+        return data.size();
     }
 
     @NotNull

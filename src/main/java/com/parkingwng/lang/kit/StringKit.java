@@ -2,6 +2,7 @@ package com.parkingwng.lang.kit;
 
 import com.parkingwng.lang.Indexed;
 
+import java.io.*;
 import java.util.Collection;
 
 /**
@@ -66,5 +67,15 @@ final public class StringKit {
      */
     public static String hex(byte[] bytes) {
         return ByteKit.toHex(bytes);
+    }
+
+    /**
+     * 从输入流中读取字符串
+     * @param in 输入流
+     * @return 字符串
+     * @throws IOException
+     */
+    public static String read(InputStream in) throws IOException {
+        return ByteKit.readString(in);
     }
 }

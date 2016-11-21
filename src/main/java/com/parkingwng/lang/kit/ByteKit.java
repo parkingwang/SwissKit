@@ -1,5 +1,9 @@
 package com.parkingwng.lang.kit;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 
 /**
@@ -22,6 +26,25 @@ final public class ByteKit {
             hexChars[j * 2 + 1] = HEX[v & 0x0F];
         }
         return new String(hexChars);
+    }
+
+    public static byte[] readBytes(InputStream in) throws IOException{
+        return readStream(in).toByteArray();
+    }
+
+    public static String readString(InputStream in) throws IOException {
+        return readStream(in).toString();
+    }
+
+    public static ByteArrayOutputStream readStream(InputStream in) throws IOException{
+        final BufferedInputStream input = new BufferedInputStream(in);
+        final ByteArrayOutputStream output = new ByteArrayOutputStream();
+        int read = input.read();
+        while(read != -1) {
+            output.write((byte) read);
+            read = input.read();
+        }
+        return output;
     }
 
     public static byte[] fromShort(short value) {
