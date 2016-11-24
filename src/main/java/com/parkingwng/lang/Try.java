@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0.5
  */
-public class Try {
+final public class Try {
 
     private Try(){}
 
@@ -27,9 +27,9 @@ public class Try {
         }
     }
 
-    public static <T> T die(ThrowAction<T> action){
+    public static <T> T die(ThrowSupplier<T> supplier){
         try{
-            return action.invoke();
+            return supplier.get();
         }catch (Throwable r){
             r.printStackTrace();
             System.exit(-1);
@@ -69,12 +69,12 @@ public class Try {
         void onFailed();
     }
 
-    public abstract class JustRetryAction implements RetryAction{
+    public static abstract class JustRetryAction implements RetryAction{
         @Override
         public void onFailed() {}
     }
 
-    public abstract class ExitRetryAction implements RetryAction{
+    public static abstract class ExitRetryAction implements RetryAction{
         @Override
         public void onFailed() { System.exit(-1); }
     }
