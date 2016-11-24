@@ -38,7 +38,7 @@ final public class Try {
     }
 
     public static void retry(int maxRetries, RetryAction action, int sleepAtNext) {
-        final AtomicInteger retries = new AtomicInteger(1);
+        final AtomicInteger retries = new AtomicInteger(0);
         boolean failed = true;
         while (retries.get() < maxRetries){
             try {
@@ -46,9 +46,9 @@ final public class Try {
                 failed = false;
                 break;
             } catch (Throwable err) {
-                final int nextRetry = retries.incrementAndGet();
-                action.onThrows(err, nextRetry);
-                final int sleep = nextRetry * sleepAtNext;
+                final int next = retries.incrementAndGet();
+                action.onThrows(err, next);
+                final int sleep = next * sleepAtNext;
                 if (retries.get() < maxRetries && sleep > 0) {
                     try {
                         Thread.sleep(sleep);
