@@ -6,15 +6,15 @@ import java.util.concurrent.CountDownLatch;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
- * @since 1.0
+ * @since 1.0.7
  */
 final public class LatchedValue<T> {
 
     private final CountDownLatch mLatch = new CountDownLatch(1);
-    private T mRef;
+    private T mValue;
 
-    public LatchedValue(@NotNull T ref) {
-        setValue(ref);
+    public LatchedValue(@NotNull T value) {
+        setValue(value);
     }
 
     public boolean isSet() {
@@ -25,9 +25,9 @@ final public class LatchedValue<T> {
         return !isSet();
     }
 
-    public synchronized void setValue(T ref) {
+    public synchronized void setValue(@NotNull T ref) {
         if (!isSet()){
-            mRef = ref;
+            mValue = ref;
             mLatch.countDown();
         }
     }
@@ -36,7 +36,7 @@ final public class LatchedValue<T> {
     public T get() throws InterruptedException {
         mLatch.await();
         synchronized (this){
-            return mRef;
+            return mValue;
         }
     }
 
@@ -45,11 +45,11 @@ final public class LatchedValue<T> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         final LatchedValue<?> ref = (LatchedValue<?>) o;
-        return mRef != null ? mRef.equals(ref.mRef) : ref.mRef == null;
+        return mValue != null ? mValue.equals(ref.mValue) : ref.mValue == null;
     }
 
     @Override
     public int hashCode() {
-        return mRef != null ? mRef.hashCode() : 0;
+        return mValue != null ? mValue.hashCode() : 0;
     }
 }

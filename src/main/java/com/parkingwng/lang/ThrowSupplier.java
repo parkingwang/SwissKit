@@ -1,9 +1,12 @@
 package com.parkingwng.lang;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0.6
  */
 public interface ThrowSupplier<T> {
-    T get() throws Throwable;
+
+    @NotNull T get() throws Throwable;
 }

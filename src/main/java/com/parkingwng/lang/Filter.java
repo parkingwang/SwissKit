@@ -8,6 +8,6 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface Filter<T> {
 
-    boolean filter(@NotNull T arg);
+    boolean filter(@NotNull T item);
 
 }

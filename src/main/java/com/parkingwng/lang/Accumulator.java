@@ -6,8 +6,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0
  */
-public interface Accumulator<E> {
+public interface Accumulator<T> {
 
-    @NotNull
-    E invoke(@NotNull E e1, @NotNull E e2);
+    @NotNull T invoke(@NotNull T a, @NotNull T b);
 }

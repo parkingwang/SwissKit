@@ -18,8 +18,8 @@ public class StreamTest {
         final List<String> output = Stream.of(1,2,3,4,5,6,7,8,9)
                 .filter(new Filter<Integer>() {
                     @Override
-                    public boolean filter(Integer arg) {
-                        return arg % 2 == 0;
+                    public boolean filter(Integer item) {
+                        return item % 2 == 0;
                     }
                 })
                 .map(new Transformer<Integer, String>() {

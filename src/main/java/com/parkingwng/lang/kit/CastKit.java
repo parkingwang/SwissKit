@@ -1,6 +1,6 @@
 package com.parkingwng.lang.kit;
 
-import com.parkingwng.lang.Action2;
+import com.parkingwng.lang.Transformer;
 
 /**
  * 参考alibaba.fastjson的实现
@@ -42,12 +42,12 @@ final public class CastKit {
         if (value instanceof Number) {
             return ((Number) value).intValue();
         }
-        return parseStringTo(value, defaultValue, new Action2<String, Integer>() {
-            public Integer invoke(String arg) {
+        return parseStringTo(value, defaultValue, new Transformer<String, Integer>() {
+            public Integer transform(String arg) {
                 return Integer.parseInt(arg);
             }
-        }, new Action2<Object, Integer>() {
-            public Integer invoke(Object arg) {
+        }, new Transformer<Object, Integer>() {
+            public Integer transform(Object arg) {
                 if (arg instanceof Boolean) {
                     return ((Boolean) arg) ? 1 : 0;
                 }
@@ -66,12 +66,12 @@ final public class CastKit {
         if (value instanceof Number) {
             return ((Number) value).longValue();
         }
-        return parseStringTo(value, defaultValue, new Action2<String, Long>() {
-            public Long invoke(String arg) {
+        return parseStringTo(value, defaultValue, new Transformer<String, Long>() {
+            public Long transform(String arg) {
                 return Long.parseLong(arg);
             }
-        }, new Action2<Object, Long>() {
-            public Long invoke(Object arg) {
+        }, new Transformer<Object, Long>() {
+            public Long transform(Object arg) {
                 if (arg instanceof Boolean) {
                     return ((Boolean) arg) ? 1L : 0;
                 }
@@ -90,12 +90,12 @@ final public class CastKit {
         if (value instanceof Number) {
             return ((Number) value).floatValue();
         }
-        return parseStringTo(value, defaultValue, new Action2<String, Float>() {
-            public Float invoke(String arg) {
+        return parseStringTo(value, defaultValue, new Transformer<String, Float>() {
+            public Float transform(String arg) {
                 return Float.parseFloat(arg);
             }
-        }, new Action2<Object, Float>() {
-            public Float invoke(Object arg) {
+        }, new Transformer<Object, Float>() {
+            public Float transform(Object arg) {
                 if (arg instanceof Boolean) {
                     return ((Boolean) arg) ? 1f : 0;
                 }
@@ -114,12 +114,12 @@ final public class CastKit {
         if (value instanceof Number) {
             return ((Number) value).doubleValue();
         }
-        return parseStringTo(value, defaultValue, new Action2<String, Double>() {
-            public Double invoke(String arg) {
+        return parseStringTo(value, defaultValue, new Transformer<String, Double>() {
+            public Double transform(String arg) {
                 return Double.parseDouble(arg);
             }
-        }, new Action2<Object, Double>() {
-            public Double invoke(Object arg) {
+        }, new Transformer<Object, Double>() {
+            public Double transform(Object arg) {
                 if (arg instanceof Boolean) {
                     return ((Boolean) arg) ? 1.0 : 0;
                 }
@@ -128,7 +128,7 @@ final public class CastKit {
         });
     }
 
-    private static <T> T parseStringTo(Object value, T defaultValue, Action2<String, T> isAction, Action2<Object, T> elseAction) {
+    private static <T> T parseStringTo(Object value, T defaultValue, Transformer<String, T> isAction, Transformer<Object, T> elseAction) {
         if (value instanceof String) {
             String str = (String) value;
             if (str.length() == 0 || "null".equalsIgnoreCase(str)) {
@@ -137,9 +137,9 @@ final public class CastKit {
             if (str.indexOf(',') != 0) {
                 str = str.replaceAll(",", "");
             }
-            return isAction.invoke(str);
+            return isAction.transform(str);
         }
-        return elseAction.invoke(value);
+        return elseAction.transform(value);
     }
 
 }

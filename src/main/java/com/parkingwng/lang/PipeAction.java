@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0
  */
-public interface Action1<T> {
-    @NotNull
-    T invoke(@NotNull T arg);
+public interface PipeAction<T> {
+
+    @NotNull T transit(@NotNull T arg);
 }
