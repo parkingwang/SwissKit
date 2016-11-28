@@ -1,5 +1,7 @@
 package com.parkingwng.lang;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -16,6 +18,7 @@ public class Lazy<T> implements Supplier<T>{
     }
 
     @Override
+    @NotNull
     public T get(){
         final T cached = mObjRef.get();
         if (cached == null) {

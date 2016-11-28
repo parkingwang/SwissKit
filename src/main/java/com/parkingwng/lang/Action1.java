@@ -1,9 +1,12 @@
 package com.parkingwng.lang;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0
  */
 public interface Action1<T> {
-    T invoke(T arg);
+    @NotNull
+    T invoke(@NotNull T arg);
 }
