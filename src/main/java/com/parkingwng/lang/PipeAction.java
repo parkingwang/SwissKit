@@ -6,8 +6,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0
  */
-public interface Transformer<I, O> {
+public interface PipeAction<T> {
 
-    @NotNull O transform(I in);
-
+    @NotNull T transit(@NotNull T arg);
 }

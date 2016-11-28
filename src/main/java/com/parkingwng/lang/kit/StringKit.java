@@ -1,7 +1,10 @@
 package com.parkingwng.lang.kit;
 
 import com.parkingwng.lang.Indexed;
+import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 
 /**
@@ -27,7 +30,7 @@ final public class StringKit {
      * @param to 替换目标字符
      * @return 替换后的字符串
      */
-    public static String sreplace(String src, char from, char to) {
+    public static String creplace(String src, char from, char to) {
         final char[] chars = src.toCharArray();
         for (int i = 0; i < chars.length; i++) {
             if(chars[i] == from) {
@@ -35,6 +38,30 @@ final public class StringKit {
             }
         }
         return new String(chars);
+    }
+
+    @NotNull
+    public static String replateMarker(String marker, Object value, String template){
+        int foundIndex = template.indexOf(marker);
+        if (foundIndex == -1) {
+            return template;
+        }else{
+            int fromIndex = 0;
+            final StringBuilder buff = new StringBuilder(template.substring(fromIndex, foundIndex));
+            buff.append(value);
+            while (true){
+                fromIndex = foundIndex + marker.length();
+                foundIndex = template.indexOf(marker, fromIndex);
+                if (fromIndex == foundIndex || -1 == foundIndex){
+                    buff.append(template.substring(fromIndex, template.length()));
+                    break;
+                }else{
+                    buff.append(template.substring(fromIndex, foundIndex));
+                    buff.append(value);
+                }
+            }
+            return buff.toString();
+        }
     }
 
     /**
@@ -66,5 +93,15 @@ final public class StringKit {
      */
     public static String hex(byte[] bytes) {
         return ByteKit.toHex(bytes);
+    }
+
+    /**
+     * 从输入流中读取字符串
+     * @param in 输入流
+     * @return 字符串
+     * @throws IOException
+     */
+    public static String read(InputStream in) throws IOException {
+        return ByteKit.readString(in);
     }
 }

@@ -4,10 +4,9 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
- * @since 1.0
+ * @since 1.0.6
  */
-public interface Transformer<I, O> {
+public interface ThrowSupplier<T> {
 
-    @NotNull O transform(I in);
-
+    @NotNull T get() throws Throwable;
 }

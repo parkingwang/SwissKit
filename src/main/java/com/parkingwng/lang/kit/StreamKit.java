@@ -1,6 +1,8 @@
 package com.parkingwng.lang.kit;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
@@ -21,7 +23,4 @@ final public class StreamKit {
         return count;
     }
 
-    public static int copy(InputStream from, OutputStream to) throws IOException {
-        return copy(new InputStreamReader(from), new OutputStreamWriter(to));
-    }
 }
