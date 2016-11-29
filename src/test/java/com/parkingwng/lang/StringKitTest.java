@@ -17,4 +17,24 @@ public class StringKitTest {
         Assert.assertEquals("abc,def,ghi", StringKit.creplace(ORIGIN, '.', ','));
     }
 
+    @Test
+    public void testSplit(){
+        String template = "/service/$client_id/profile/$pid";
+        String[] segments = StringKit.split(template, "/");
+        Assert.assertArrayEquals(new String[]{"service", "$client_id", "profile", "$pid"}, segments);
+    }
+
+    @Test
+    public void testSplit0(){
+        String template = "/service/";
+        String[] segments = StringKit.split(template, "/");
+        Assert.assertArrayEquals(new String[]{"service"}, segments);
+    }
+
+    @Test
+    public void testSplit1(){
+        String template = "service/$client_id/";
+        String[] segments = StringKit.split(template, "/");
+        Assert.assertArrayEquals(new String[]{"service", "$client_id"}, segments);
+    }
 }

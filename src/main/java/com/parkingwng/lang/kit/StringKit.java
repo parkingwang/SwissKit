@@ -1,11 +1,13 @@
 package com.parkingwng.lang.kit;
 
 import com.parkingwng.lang.Indexed;
+import com.parkingwng.lang.data.ImmutableList;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
@@ -24,7 +26,7 @@ final public class StringKit {
     }
 
     /**
-     * 小量文本替换
+     * 小量文本替换，替换单个字符
      * @param src 源数据
      * @param from 被替换字符
      * @param to 替换目标字符
@@ -40,8 +42,15 @@ final public class StringKit {
         return new String(chars);
     }
 
+    /**
+     * 对字符串模块，使用指定的值来替换给定的全部Marker。
+     * @param template 字符串模块，如  /service/api/${user_id}
+     * @param marker 需要替换的Marker，如 ${user_id}
+     * @param value 需要替换的值，如 yoojia
+     * @return 返回替换Marker后的新字符串，如 /service/api/yoojia
+     */
     @NotNull
-    public static String replateMarker(String marker, Object value, String template){
+    public static String replateMarker(String template, String marker, Object value){
         int foundIndex = template.indexOf(marker);
         if (foundIndex == -1) {
             return template;
@@ -62,6 +71,25 @@ final public class StringKit {
             }
             return buff.toString();
         }
+    }
+
+    @NotNull
+    public static String[] split(String template, String separator){
+        final List<String> output = new ArrayList<>();
+        int index = template.indexOf(separator);
+        int preIndex = 0;
+        while (index != -1){
+            if (preIndex != index){
+                output.add(template.substring(preIndex, index));
+            }
+            index++;
+            preIndex = index;
+            index = template.indexOf(separator, index);
+        }
+        if (preIndex < template.length()){
+            output.add(template.substring(preIndex));
+        }
+        return output.toArray(new String[output.size()]);
     }
 
     /**
