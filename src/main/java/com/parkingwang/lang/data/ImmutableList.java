@@ -32,6 +32,10 @@ public class ImmutableList<E> implements RandomAccess {
         return 0 == mElementData.length;
     }
 
+    public boolean isNotEmpty() {
+        return !isEmpty();
+    }
+
     public boolean contains(E o) {
         return indexOf(o) >= 0;
     }
@@ -90,6 +94,12 @@ public class ImmutableList<E> implements RandomAccess {
     @NotNull
     public Iterator<E> iterator() {
         return new Itr();
+    }
+
+    public ImmutableList<E> concat(ImmutableList<E> src){
+        final List<E> data = ListKit.arrayListOf(mElementData);
+        data.addAll(ListKit.arrayListOf(src.mElementData));
+        return listOf(data);
     }
 
     @SuppressWarnings("unchecked")
