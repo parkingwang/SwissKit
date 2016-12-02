@@ -17,9 +17,9 @@ public class ImmutableListTest {
     public void testCreate(){
         List<String> list = ListKit.arrayListOf("A", "B", "C");
         ImmutableList<String> il = ImmutableList.listOf(list);
-        Assert.assertEquals("A", il.get(0));
-        Assert.assertEquals("B", il.get(1));
-        Assert.assertEquals("C", il.get(2));
+        for (String item : il){
+            Assert.assertEquals(true, list.contains(item));
+        }
     }
 
 }

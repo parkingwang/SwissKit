@@ -9,7 +9,7 @@ import java.util.*;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0
  */
-public class ImmutableList<E> {
+public class ImmutableList<E> implements Iterable<E> {
 
     private final E[] mElementData;
     private final int mSize;
@@ -94,4 +94,57 @@ public class ImmutableList<E> {
         return new ImmutableList<>(array);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ImmutableList)) return false;
+
+        ImmutableList<?> that = (ImmutableList<?>) o;
+
+        if (mSize != that.mSize) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(mElementData, that.mElementData);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Arrays.hashCode(mElementData);
+        result = 31 * result + mSize;
+        return result;
+    }
+
+    // Add for-each feature
+    @Override
+    public Iterator<E> iterator() {
+        return new Itr();
+    }
+
+    private class Itr implements Iterator<E> {
+        int cursor;
+        int lastRet = -1;
+
+        @Override
+        public boolean hasNext() {
+            return cursor != mSize;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public E next() {
+            int i = cursor;
+            if (i >= mSize)
+                throw new NoSuchElementException();
+            Object[] elementData = mElementData;
+            if (i >= elementData.length)
+                throw new ConcurrentModificationException();
+            cursor = i + 1;
+            return (E) elementData[lastRet = i];
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+
+    }
 }
