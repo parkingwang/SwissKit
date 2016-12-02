@@ -14,6 +14,14 @@ public class Pair<A, B> {
         this.second = second;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "first=" + first +
+                ", second=" + second +
+                '}';
+    }
+
     public static <A, B> Pair<A, B> of(A a, B b){
         return new Pair<>(a, b);
     }

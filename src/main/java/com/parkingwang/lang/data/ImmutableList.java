@@ -2,7 +2,6 @@ package com.parkingwang.lang.data;
 
 import com.parkingwang.lang.kit.ListKit;
 import com.parkingwang.lang.kit.ObjectKit;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -10,7 +9,7 @@ import java.util.*;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0
  */
-public class ImmutableList<E> implements RandomAccess {
+public class ImmutableList<E> {
 
     private final E[] mElementData;
     private final int mSize;
@@ -29,7 +28,7 @@ public class ImmutableList<E> implements RandomAccess {
     }
 
     public boolean isEmpty() {
-        return 0 == mElementData.length;
+        return 0 == mSize;
     }
 
     public boolean isNotEmpty() {
@@ -38,19 +37,6 @@ public class ImmutableList<E> implements RandomAccess {
 
     public boolean contains(E o) {
         return indexOf(o) >= 0;
-    }
-
-    public int lastIndexOf(Object o) {
-        if (o == null) {
-            for (int i = mSize -1; i >= 0; i--)
-                if (mElementData[i] == null)
-                    return i;
-        } else {
-            for (int i = mSize -1; i >= 0; i--)
-                if (o.equals(mElementData[i]))
-                    return i;
-        }
-        return -1;
     }
 
     public int indexOf(E o) {
@@ -91,9 +77,9 @@ public class ImmutableList<E> implements RandomAccess {
         return new ImmutableList<>(Arrays.copyOf(mElementData, mSize));
     }
 
-    @NotNull
-    public Iterator<E> iterator() {
-        return new Itr();
+    @Override
+    public String toString() {
+        return Arrays.toString(mElementData);
     }
 
     public ImmutableList<E> concat(ImmutableList<E> src){
@@ -108,32 +94,4 @@ public class ImmutableList<E> implements RandomAccess {
         return new ImmutableList<>(array);
     }
 
-    /**
-     * An optimized version of AbstractList.Itr
-     */
-    private class Itr implements Iterator<E> {
-        int cursor;       // index of next element to return
-        int lastRet = -1; // index of last element returned; -1 if no such
-
-        public boolean hasNext() {
-            return cursor != mSize;
-        }
-
-        @SuppressWarnings("unchecked")
-        public E next() {
-            int i = cursor;
-            if (i >= mSize)
-                throw new NoSuchElementException();
-            Object[] elementData = mElementData;
-            if (i >= elementData.length)
-                throw new ConcurrentModificationException();
-            cursor = i + 1;
-            return (E) elementData[lastRet = i];
-        }
-
-        public void remove() {
-            throw new UnsupportedOperationException();
-        }
-
-    }
 }

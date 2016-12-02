@@ -14,7 +14,7 @@ public class StringKitTest {
 
     @Test
     public void testReplaceAll(){
-        Assert.assertEquals("abc,def,ghi", StringKit.creplace(ORIGIN, '.', ','));
+        Assert.assertEquals("abc,def,ghi", StringKit.replaceChar(ORIGIN, '.', ','));
     }
 
     @Test

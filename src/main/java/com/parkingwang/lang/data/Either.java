@@ -30,6 +30,14 @@ public final class Either<L, R> {
         return right != null;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "left=" + left +
+                ", right=" + right +
+                '}';
+    }
+
     public static <L, R> Either<L, R> left(L left){
         return new Either<>(left, null);
     }

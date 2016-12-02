@@ -26,16 +26,16 @@ final public class StringKit {
 
     /**
      * 小量文本替换，替换单个字符
-     * @param src 源数据
-     * @param from 被替换字符
-     * @param to 替换目标字符
+     * @param template 源数据
+     * @param fromChar 被替换字符
+     * @param toChar 替换目标字符
      * @return 替换后的字符串
      */
-    public static String creplace(String src, char from, char to) {
-        final char[] chars = src.toCharArray();
+    public static String replaceChar(String template, char fromChar, char toChar) {
+        final char[] chars = template.toCharArray();
         for (int i = 0; i < chars.length; i++) {
-            if(chars[i] == from) {
-                chars[i] = to;
+            if(chars[i] == fromChar) {
+                chars[i] = toChar;
             }
         }
         return new String(chars);
