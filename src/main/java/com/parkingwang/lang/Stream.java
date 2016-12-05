@@ -37,7 +37,7 @@ final public class Stream<E> {
 
     @NotNull
     public static <T> Stream<T> listOf(Collection<T> data){
-        return new Stream<T>(data);
+        return new Stream<>(data);
     }
 
     @NotNull

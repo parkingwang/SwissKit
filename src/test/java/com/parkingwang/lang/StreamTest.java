@@ -2,6 +2,7 @@ package com.parkingwang.lang;
 
 
 import com.parkingwang.lang.kit.StringKit;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ public class StreamTest {
 
     @Test
     public void test(){
-        final List<String> output = Stream.of(1,2,3,4,5,6,7,8,9)
+        final Stream<String> stream = Stream.of(1,2,3,4,5,6,7,8,9)
                 .filter(new Filter<Integer>() {
                     @Override
                     public boolean filter(Integer item) {
@@ -27,22 +28,37 @@ public class StreamTest {
                     public String transform(Integer in) {
                         return "S" + in;
                     }
-                })
-                .toList();
-
+                });
+        Assert.assertEquals("S2", stream.firstOrNull());
+        Assert.assertEquals("S8", stream.lastOrNull());
+        final List<String> output = stream.toList();
         final String content = StringKit.join(output, ",");
-        System.out.println(content);
         Assert.assertEquals("S2,S4,S6,S8", content);
     }
 
     @Test
     public void restReduce(){
         final int sum = Stream.of(1,2,3,4,5,6,7,8,9,10).reduce(new Accumulator<Integer>() {
-            @Override
-            public Integer invoke(Integer e1, Integer e2) {
+            @Override @NotNull
+            public Integer invoke(@NotNull Integer e1, @NotNull Integer e2) {
                 return e1 + e2;
             }
         });
         Assert.assertEquals(55, sum);
+
+        final String reduce = Stream.of(1,2,3,4,5,6,7,8,9,10).map(new Transformer<Integer, String>() {
+            @NotNull
+            @Override
+            public String transform(Integer in) {
+                return String.valueOf(in);
+            }
+        }).reduce(new Accumulator<String>() {
+            @Override @NotNull
+            public String invoke(@NotNull String e1, @NotNull String e2) {
+                return e1 + "," + e2;
+            }
+        });
+
+        Assert.assertEquals("1,2,3,4,5,6,7,8,9,10", reduce);
     }
 }

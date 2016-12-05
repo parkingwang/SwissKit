@@ -49,7 +49,7 @@ final public class StringKit {
      * @return 返回替换Marker后的新字符串，如 /service/api/yoojia
      */
     @NotNull
-    public static String replateMarker(String template, String marker, Object value){
+    public static String replaceMarker(String template, String marker, Object value){
         int foundIndex = template.indexOf(marker);
         if (foundIndex == -1) {
             return template;

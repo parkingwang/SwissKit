@@ -1,6 +1,5 @@
 package com.parkingwang.lang;
 
-import java.io.Closeable;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -11,7 +10,7 @@ final public class Try {
 
     private Try(){}
 
-    public static void close(final Closeable closeable){
+    public static void close(final AutoCloseable closeable){
         ignore(new ThrowAction.ThrowAction0() {
             @Override public void invoke0() throws Throwable {
                 if (closeable != null) closeable.close();
