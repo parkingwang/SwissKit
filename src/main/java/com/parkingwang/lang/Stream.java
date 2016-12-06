@@ -1,12 +1,10 @@
 package com.parkingwang.lang;
 
+import com.parkingwang.lang.data.ImmutableList;
 import com.parkingwang.lang.kit.ListKit;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
@@ -100,6 +98,11 @@ final public class Stream<E> {
     @NotNull
     public E[] toArray(){
         return (E[]) data.toArray();
+    }
+
+    @NotNull
+    public ImmutableList<E> toImmutableList(){
+        return ImmutableList.listOf(data);
     }
 
     @NotNull

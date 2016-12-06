@@ -2,6 +2,7 @@ package com.parkingwang.lang.data;
 
 import com.parkingwang.lang.kit.ListKit;
 import com.parkingwang.lang.kit.ObjectKit;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -19,6 +20,7 @@ public class ImmutableList<E> implements Iterable<E> {
         this.mSize = mElementData.length;
     }
 
+    @NotNull
     public E get(int position) {
         return mElementData[position];
     }
@@ -52,14 +54,17 @@ public class ImmutableList<E> implements Iterable<E> {
         return -1;
     }
 
+    @NotNull
     public ArrayList<E> toList(){
         return ListKit.arrayListOf(mElementData);
     }
 
+    @NotNull
     public E[] toArray() {
         return Arrays.copyOf(mElementData, mSize);
     }
 
+    @NotNull
     @SuppressWarnings("unchecked")
     public <T> T[] toArray(T[] a) {
         if (a.length < mSize) {
@@ -82,12 +87,14 @@ public class ImmutableList<E> implements Iterable<E> {
         return Arrays.toString(mElementData);
     }
 
+    @NotNull
     public ImmutableList<E> concat(ImmutableList<E> src){
         final List<E> data = ListKit.arrayListOf(mElementData);
         data.addAll(ListKit.arrayListOf(src.mElementData));
         return listOf(data);
     }
 
+    @NotNull
     @SuppressWarnings("unchecked")
     public static <E> ImmutableList<E> listOf(Collection<E> data) {
         final E[] array = (E[]) data.toArray();
