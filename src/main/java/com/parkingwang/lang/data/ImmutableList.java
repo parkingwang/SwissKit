@@ -1,5 +1,6 @@
 package com.parkingwang.lang.data;
 
+import com.parkingwang.lang.Stream;
 import com.parkingwang.lang.kit.ListKit;
 import com.parkingwang.lang.kit.ObjectKit;
 import org.jetbrains.annotations.NotNull;
@@ -92,6 +93,10 @@ public class ImmutableList<E> implements Iterable<E> {
         final List<E> data = ListKit.arrayListOf(mElementData);
         data.addAll(ListKit.arrayListOf(src.mElementData));
         return listOf(data);
+    }
+
+    public Stream<E> stream(){
+        return Stream.arrayOf(mElementData);
     }
 
     @NotNull

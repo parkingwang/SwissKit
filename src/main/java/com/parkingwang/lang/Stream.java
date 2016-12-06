@@ -106,6 +106,11 @@ final public class Stream<E> {
     }
 
     @NotNull
+    public Set<E> toHashSet(){
+        return new LinkedHashSet<>(data);
+    }
+
+    @NotNull
     public static <T> Collection<T> filterWith(Collection<T> items, Filter<T> action) {
         final List<T> output = new ArrayList<>();
         for (T item : items) {
