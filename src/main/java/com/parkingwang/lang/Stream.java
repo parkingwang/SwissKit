@@ -12,7 +12,7 @@ import java.util.*;
  */
 final public class Stream<E> {
 
-    private Collection<E> data;
+    private Collection<E> mElementData;
 
     private Stream(){}
 
@@ -20,39 +20,39 @@ final public class Stream<E> {
         if (data.isEmpty()){
             throw new IllegalArgumentException("Stream NOT allow empty elements");
         }
-        this.data = data;
+        this.mElementData = data;
     }
 
     @NotNull
-    public static <T> Stream<T> of(T...items) {
+    public static <T> Stream<T> of(@NotNull T...items) {
         return new Stream<>(Arrays.asList(items));
     }
 
     @NotNull
-    public static <T> Stream<T> arrayOf(T[] items) {
+    public static <T> Stream<T> arrayOf(@NotNull T[] items) {
         return new Stream<>(Arrays.asList(items));
     }
 
     @NotNull
-    public static <T> Stream<T> listOf(Collection<T> data){
+    public static <T> Stream<T> listOf(@NotNull Collection<T> data){
         return new Stream<>(data);
     }
 
     @NotNull
-    public Stream<E> filter(Filter<E> filter) {
-        data = filterWith(data, filter);
+    public Stream<E> filter(@NotNull Filter<E> filter) {
+        mElementData = filterWith(mElementData, filter);
         return this;
     }
 
     @NotNull
-    public <R> Stream<R> map(Transformer<E, R> transformer) {
+    public <R> Stream<R> map(@NotNull Transformer<E, R> transformer) {
         final Stream<R> stream = new Stream<>();
-        stream.data = mapWith(data, transformer);
+        stream.mElementData = mapWith(mElementData, transformer);
         return stream;
     }
 
     @NotNull
-    public E reduce(Accumulator<E> action){
+    public E reduce(@NotNull Accumulator<E> action){
         final List<E> list = toList();
         final int size = list.size();
         E output = list.get(0);
@@ -74,12 +74,12 @@ final public class Stream<E> {
         if (isEmpty()) {
             return null;
         }else{
-            return toList().get(data.size() - 1);
+            return toList().get(mElementData.size() - 1);
         }
     }
 
     public boolean isEmpty(){
-        return data.isEmpty();
+        return mElementData.isEmpty();
     }
 
     public boolean isNotEmpty(){
@@ -87,27 +87,27 @@ final public class Stream<E> {
     }
 
     public int size(){
-        return data.size();
+        return mElementData.size();
     }
 
     @NotNull
     public List<E> toList(){
-        return ListKit.toArrayList(data);
+        return ListKit.toArrayList(mElementData);
     }
 
     @NotNull
     public E[] toArray(){
-        return (E[]) data.toArray();
+        return (E[]) mElementData.toArray();
     }
 
     @NotNull
     public ImmutableList<E> toImmutableList(){
-        return ImmutableList.listOf(data);
+        return ImmutableList.listOf(mElementData);
     }
 
     @NotNull
     public Set<E> toHashSet(){
-        return new LinkedHashSet<>(data);
+        return new LinkedHashSet<>(mElementData);
     }
 
     @NotNull

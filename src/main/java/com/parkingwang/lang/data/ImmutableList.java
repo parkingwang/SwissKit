@@ -90,11 +90,16 @@ public class ImmutableList<E> implements Iterable<E> {
 
     @NotNull
     public ImmutableList<E> concat(ImmutableList<E> src){
-        final List<E> data = ListKit.arrayListOf(mElementData);
-        data.addAll(ListKit.arrayListOf(src.mElementData));
-        return listOf(data);
+        if (src.isNotEmpty()){
+            final List<E> data = ListKit.arrayListOf(mElementData);
+            data.addAll(ListKit.arrayListOf(src.mElementData));
+            return listOf(data);
+        }else{
+            return this;
+        }
     }
 
+    @NotNull
     public Stream<E> stream(){
         return Stream.arrayOf(mElementData);
     }

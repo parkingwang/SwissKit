@@ -17,9 +17,10 @@ final public class ListKit {
 
     public static <T> ArrayList<T> arrayListOf(T...items){
         if (items.length == 0) {
-            throw new IllegalArgumentException("Initial item is required !");
+            return new ArrayList<>(0);
+        }else{
+            return toArrayList(Arrays.asList(items));
         }
-        return toArrayList(Arrays.asList(items));
     }
 
     public static <T> ArrayList<T> toArrayList(Collection<T> items) {

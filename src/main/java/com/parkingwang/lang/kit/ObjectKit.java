@@ -16,7 +16,7 @@ final public class ObjectKit {
     }
 
     @NotNull
-    public static <T> T notNull(T arg, String failMessage){
+    public static <T> T notNull(T arg, @NotNull String failMessage){
         if (arg == null) {
             throw new NullPointerException(failMessage);
         }
