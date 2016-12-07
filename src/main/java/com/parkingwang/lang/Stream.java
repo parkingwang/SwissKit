@@ -17,9 +17,6 @@ final public class Stream<E> {
     private Stream(){}
 
     private Stream(Collection<E> data){
-        if (data.isEmpty()){
-            throw new IllegalArgumentException("Stream NOT allow empty elements");
-        }
         this.mElementData = data;
     }
 
@@ -53,6 +50,7 @@ final public class Stream<E> {
 
     @NotNull
     public E reduce(@NotNull Accumulator<E> action){
+        invokeLazy();
         final List<E> list = toList();
         final int size = list.size();
         E output = list.get(0);
@@ -79,35 +77,46 @@ final public class Stream<E> {
     }
 
     public boolean isEmpty(){
+        invokeLazy();
         return mElementData.isEmpty();
     }
 
     public boolean isNotEmpty(){
+        invokeLazy();
         return !isEmpty();
     }
 
     public int size(){
+        invokeLazy();
         return mElementData.size();
     }
 
     @NotNull
     public List<E> toList(){
+        invokeLazy();
         return ListKit.toArrayList(mElementData);
     }
 
     @NotNull
     public E[] toArray(){
+        invokeLazy();
         return (E[]) mElementData.toArray();
     }
 
     @NotNull
     public ImmutableList<E> toImmutableList(){
+        invokeLazy();
         return ImmutableList.listOf(mElementData);
     }
 
     @NotNull
     public Set<E> toHashSet(){
+        invokeLazy();
         return new LinkedHashSet<>(mElementData);
+    }
+
+    private void invokeLazy(){
+
     }
 
     @NotNull
