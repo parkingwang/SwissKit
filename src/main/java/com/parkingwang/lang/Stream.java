@@ -2,7 +2,6 @@ package com.parkingwang.lang;
 
 import com.parkingwang.lang.data.ImmutableList;
 import com.parkingwang.lang.kit.ListKit;
-import com.sun.istack.internal.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -54,7 +53,6 @@ final public class Stream<E> {
         return reduceOrDefault(defaultValue, action);
     }
 
-    @Nullable
     public E reduceOrDefault(@NotNull Accumulator<E> action){
         return reduceOrDefault(null, action);
     }
