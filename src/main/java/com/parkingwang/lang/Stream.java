@@ -2,6 +2,7 @@ package com.parkingwang.lang;
 
 import com.parkingwang.lang.data.ImmutableList;
 import com.parkingwang.lang.kit.ListKit;
+import com.sun.istack.internal.Nullable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -53,21 +54,17 @@ final public class Stream<E> {
         return reduceOrDefault(defaultValue, action);
     }
 
+    @Nullable
     public E reduceOrDefault(@NotNull Accumulator<E> action){
         return reduceOrDefault(null, action);
     }
 
-    private E reduceOrDefault(E defaultValue, @NotNull Accumulator<E> action){
-        E output = defaultValue;
-        if (isNotEmpty()){
-            final List<E> list = toList();
-            output = list.get(0);
-            final int size = list.size();
-            for (int i = 1; i < size; i++) {
-                output = action.invoke(output, list.get(i));
-            }
-        }
-        return output;
+    @NotNull
+    public Stream<E> sort(@NotNull Comparator<E> comparator){
+        final List<E> sorted = ListKit.toArrayList(mElementData);
+        Collections.sort(sorted, comparator);
+        mElementData = sorted;
+        return this;
     }
 
     public E firstOrNull(){
@@ -123,6 +120,19 @@ final public class Stream<E> {
     public Set<E> toHashSet(){
         invokeLazy();
         return new LinkedHashSet<>(mElementData);
+    }
+
+    private E reduceOrDefault(E defaultValue, @NotNull Accumulator<E> action){
+        E output = defaultValue;
+        if (isNotEmpty()){
+            final List<E> list = toList();
+            output = list.get(0);
+            final int size = list.size();
+            for (int i = 1; i < size; i++) {
+                output = action.invoke(output, list.get(i));
+            }
+        }
+        return output;
     }
 
     private void invokeLazy(){
