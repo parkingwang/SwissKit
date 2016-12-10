@@ -49,13 +49,23 @@ final public class Stream<E> {
     }
 
     @NotNull
-    public E reduce(@NotNull Accumulator<E> action){
-        invokeLazy();
-        final List<E> list = toList();
-        final int size = list.size();
-        E output = list.get(0);
-        for (int i = 1; i < size; i++) {
-            output = action.invoke(output, list.get(i));
+    public E reduce(@NotNull E defaultValue, @NotNull Accumulator<E> action){
+        return reduceOrDefault(defaultValue, action);
+    }
+
+    public E reduceOrDefault(@NotNull Accumulator<E> action){
+        return reduceOrDefault(null, action);
+    }
+
+    private E reduceOrDefault(E defaultValue, @NotNull Accumulator<E> action){
+        E output = defaultValue;
+        if (isNotEmpty()){
+            final List<E> list = toList();
+            output = list.get(0);
+            final int size = list.size();
+            for (int i = 1; i < size; i++) {
+                output = action.invoke(output, list.get(i));
+            }
         }
         return output;
     }
@@ -116,7 +126,7 @@ final public class Stream<E> {
     }
 
     private void invokeLazy(){
-
+        // TODO
     }
 
     @NotNull
