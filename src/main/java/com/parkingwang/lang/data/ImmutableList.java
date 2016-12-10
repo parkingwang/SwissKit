@@ -13,12 +13,20 @@ import java.util.*;
  */
 public class ImmutableList<E> implements Iterable<E> {
 
+    public static final ImmutableList EMPTY = new ImmutableList<>(Collections.emptyList().toArray());
+
     private final E[] mElementData;
     private final int mSize;
 
     public ImmutableList(E[] data) {
         this.mElementData = ObjectKit.notNull(data);
         this.mSize = mElementData.length;
+    }
+
+    @NotNull
+    @SuppressWarnings("unchecked")
+    public static <E> ImmutableList<E> empty(){
+        return EMPTY;
     }
 
     @NotNull
@@ -96,6 +104,22 @@ public class ImmutableList<E> implements Iterable<E> {
             return listOf(data);
         }else{
             return this;
+        }
+    }
+
+    @NotNull
+    @SuppressWarnings("unchecked")
+    public ImmutableList<E> subList(int fromIndex, int toIndex){
+        if (fromIndex == toIndex){
+            return ImmutableList.empty();
+        }else if (fromIndex > toIndex){
+            throw new IllegalArgumentException("Illegal arguments: from: " + fromIndex + ", to:" + toIndex);
+        }
+        if (isNotEmpty()){
+            final E[] data = (E[])ListKit.arrayListOf(mElementData).subList(fromIndex, toIndex).toArray();
+            return new ImmutableList<>(data);
+        }else{
+            return ImmutableList.empty();
         }
     }
 

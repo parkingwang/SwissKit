@@ -12,7 +12,7 @@ import java.util.*;
  */
 final public class Stream<E> {
 
-    private Collection<E> mElementData;
+    private Collection<E> mElementData = Collections.emptyList();
 
     private Stream(){}
 
