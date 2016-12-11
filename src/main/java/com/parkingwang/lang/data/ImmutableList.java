@@ -1,6 +1,5 @@
 package com.parkingwang.lang.data;
 
-import com.parkingwang.lang.Stream;
 import com.parkingwang.lang.kit.ListKit;
 import com.parkingwang.lang.kit.ObjectKit;
 import org.jetbrains.annotations.NotNull;
@@ -75,15 +74,15 @@ public class ImmutableList<E> implements Iterable<E> {
 
     @NotNull
     @SuppressWarnings("unchecked")
-    public <T> T[] toArray(T[] a) {
-        if (a.length < mSize) {
-            return (T[]) Arrays.copyOf(mElementData, mSize, a.getClass());
+    public <T> T[] toArray(T[] array) {
+        if (array.length < mSize) {
+            return (T[]) Arrays.copyOf(mElementData, mSize, array.getClass());
         }
-        System.arraycopy(mElementData, 0, a, 0, mSize);
-        if (a.length > mSize) {
-            a[mSize] = null;
+        System.arraycopy(mElementData, 0, array, 0, mSize);
+        if (array.length > mSize) {
+            array[mSize] = null;
         }
-        return a;
+        return array;
     }
 
     @Override
@@ -121,11 +120,6 @@ public class ImmutableList<E> implements Iterable<E> {
         }else{
             return ImmutableList.empty();
         }
-    }
-
-    @NotNull
-    public Stream<E> stream(){
-        return Stream.arrayOf(mElementData);
     }
 
     @NotNull

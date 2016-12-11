@@ -1,4 +1,4 @@
-package com.parkingwang.lang;
+package com.parkingwang.lang.data;
 
 import org.jetbrains.annotations.NotNull;
 

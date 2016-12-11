@@ -29,10 +29,10 @@ final public class Try {
     public static <T> T die(ThrowSupplier<T> supplier){
         try{
             return supplier.get();
-        }catch (Throwable r){
-            r.printStackTrace();
+        }catch (Throwable t){
+            t.printStackTrace();
             System.exit(-1);
-            throw new IllegalStateException("User manual shutdown the JVM on errors", r);
+            throw new IllegalStateException("User manual shutdown the JVM on errors", t);
         }
     }
 
