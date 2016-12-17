@@ -43,11 +43,11 @@ final public class CastKit {
             return ((Number) value).intValue();
         }
         return parseStringTo(value, defaultValue, new Transformer<String, Integer>() {
-            public Integer transform(String arg) {
+            public Integer call(String arg) {
                 return Integer.parseInt(arg);
             }
         }, new Transformer<Object, Integer>() {
-            public Integer transform(Object arg) {
+            public Integer call(Object arg) {
                 if (arg instanceof Boolean) {
                     return ((Boolean) arg) ? 1 : 0;
                 }
@@ -67,11 +67,11 @@ final public class CastKit {
             return ((Number) value).longValue();
         }
         return parseStringTo(value, defaultValue, new Transformer<String, Long>() {
-            public Long transform(String arg) {
+            public Long call(String arg) {
                 return Long.parseLong(arg);
             }
         }, new Transformer<Object, Long>() {
-            public Long transform(Object arg) {
+            public Long call(Object arg) {
                 if (arg instanceof Boolean) {
                     return ((Boolean) arg) ? 1L : 0;
                 }
@@ -91,11 +91,11 @@ final public class CastKit {
             return ((Number) value).floatValue();
         }
         return parseStringTo(value, defaultValue, new Transformer<String, Float>() {
-            public Float transform(String arg) {
+            public Float call(String arg) {
                 return Float.parseFloat(arg);
             }
         }, new Transformer<Object, Float>() {
-            public Float transform(Object arg) {
+            public Float call(Object arg) {
                 if (arg instanceof Boolean) {
                     return ((Boolean) arg) ? 1f : 0;
                 }
@@ -115,11 +115,11 @@ final public class CastKit {
             return ((Number) value).doubleValue();
         }
         return parseStringTo(value, defaultValue, new Transformer<String, Double>() {
-            public Double transform(String arg) {
+            public Double call(String arg) {
                 return Double.parseDouble(arg);
             }
         }, new Transformer<Object, Double>() {
-            public Double transform(Object arg) {
+            public Double call(Object arg) {
                 if (arg instanceof Boolean) {
                     return ((Boolean) arg) ? 1.0 : 0;
                 }
@@ -137,9 +137,9 @@ final public class CastKit {
             if (str.indexOf(',') != 0) {
                 str = str.replaceAll(",", "");
             }
-            return isAction.transform(str);
+            return isAction.call(str);
         }
-        return elseAction.transform(value);
+        return elseAction.call(value);
     }
 
 }

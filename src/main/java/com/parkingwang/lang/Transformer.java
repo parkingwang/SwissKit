@@ -8,6 +8,6 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface Transformer<I, O> {
 
-    @NotNull O transform(I in);
+    @NotNull O call(I in);
 
 }

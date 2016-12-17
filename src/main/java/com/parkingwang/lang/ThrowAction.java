@@ -14,10 +14,10 @@ public interface ThrowAction<T> {
 
         @Override
         public Void invoke() throws Throwable {
-            invoke0();
+            call();
             return null;
         }
 
-        abstract public void invoke0() throws Throwable;
+        abstract public void call() throws Throwable;
     }
 }

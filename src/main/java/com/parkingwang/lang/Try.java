@@ -12,7 +12,7 @@ final public class Try {
 
     public static void close(final AutoCloseable closeable){
         ignore(new ThrowAction.ThrowAction0() {
-            @Override public void invoke0() throws Throwable {
+            @Override public void call() throws Throwable {
                 if (closeable != null) closeable.close();
             }
         });
@@ -28,7 +28,7 @@ final public class Try {
 
     public static <T> T die(ThrowSupplier<T> supplier){
         try{
-            return supplier.get();
+            return supplier.call();
         }catch (Throwable t){
             t.printStackTrace();
             System.exit(-1);
