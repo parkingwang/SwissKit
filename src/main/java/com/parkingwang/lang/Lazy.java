@@ -32,6 +32,10 @@ public class Lazy<T>{
         }
     }
 
+    public void remove(){
+        mValue.set(null);
+    }
+
     public static <T> Lazy<T> from(Supplier<T> supplier) {
         return new Lazy<>(supplier);
     }
