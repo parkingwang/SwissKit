@@ -21,56 +21,42 @@ public class MapReader {
         return new MapReader(ObjectKit.notNull(map));
     }
 
-    public <T> T getTyped(@NotNull String nameChain, T defValue) {
-        return (T) get(nameChain, defValue);
-    }
-
-    public Object get(@NotNull String nameChain, Object defValue){
+    public <T> T get(@NotNull String nameChain, T defValue){
         // app.keys[0].name -> app/keys/[0]/name
         // app -> app
         // app.keys[0] -> app/keys/[0]
-        final String[] path = StringKit.split(nameChain, ".");
-        if (path.length == 1) {
-            final Object val = mMap.get(path[0]);
-            if (val != null) {
-                return val;
-            }else{
-                return defValue;
+        final Queue<Section> sections = convert(StringKit.split(nameChain, "."));
+        Object output = null;
+        Object temp = mMap;
+        while (!sections.isEmpty()) {
+            final Section sec = sections.poll();
+            final Object stepVal;
+            if (sec.isArray) {
+                final List<Object> list = (List<Object>) temp;
+                stepVal = list.get(sec.index);
+            }else/* if (sec.isObject) */{
+                final Map<String, Object> map = (Map<String, Object>) temp;
+                stepVal = map.get(sec.name);
             }
+            if (stepVal == null) {
+                output = null;
+                break;
+            }else if (sections.isEmpty()){
+                output = stepVal;
+            }else{
+                temp = stepVal;
+            }
+        }
+        if (output != null) {
+            return (T) output;
         }else{
-            final Queue<Section> sections = convert(path);
-            Object output = null;
-            Object temp = mMap;
-            while (!sections.isEmpty()) {
-                final Section sec = sections.poll();
-                final Object stepVal;
-                if (sec.isArray) {
-                    final List<Object> list = (List<Object>) temp;
-                    stepVal = list.get(sec.index);
-                }else/* if (sec.isObject) */{
-                    final Map<String, Object> map = (Map<String, Object>) temp;
-                    stepVal = map.get(sec.name);
-                }
-                if (stepVal == null) {
-                    output = null;
-                    break;
-                }else if (sections.isEmpty()){
-                    output = stepVal;
-                }else{
-                    temp = stepVal;
-                }
-            }
-            if (output != null) {
-                return output;
-            }else{
-                return defValue;
-            }
+            return defValue;
         }
     }
 
-    private static Queue<Section> convert(String[] path){
-        Queue<Section> queue = new ArrayBlockingQueue<>(path.length);
-        for (String p : path){
+    private static Queue<Section> convert(String[] paths){
+        final List<Section> output = new ArrayList<>(paths.length + 1);
+        for (String p : paths){
             // app.keys[0].name -> app/keys/[0]/name
             // app -> app
             // app.keys[0] -> app/keys/[0]
@@ -78,15 +64,15 @@ public class MapReader {
             final int eIndex = p.indexOf("]", sIndex);
             if (sIndex > 0 && eIndex > 0) {
                 final String name = p.substring(0, sIndex);
-                queue.add(new Section(true, false, 0, name));
+                output.add(new Section(false, 0, name));
                 final String sIdx = p.substring(sIndex + 1, eIndex);
                 final int index = Integer.valueOf(sIdx);
-                queue.add(new Section(false, true, index, ""));
+                output.add(new Section(true, index, ""));
             }else{
-                queue.add(new Section(true, false, 0, p));
+                output.add(new Section(false, 0, p));
             }
         }
-        return queue;
+        return new ArrayBlockingQueue<>(output.size(), true, output);
     }
 
     private static class Section {
@@ -96,20 +82,12 @@ public class MapReader {
         public final int index;
         public final String name;
 
-        private Section(boolean isObject, boolean isArray, int index, String name) {
-            this.isObject = isObject;
+        private Section(boolean isArray, int index, String name) {
+            this.isObject = !isArray;
             this.isArray = isArray;
             this.index = index;
             this.name = name;
         }
     }
 
-    public static void main(String[] args) {
-
-        Map<String, Object> map = new HashMap<>();
-
-        MapReader r = MapReader.of(map);
-        r.get("app.keys[0].name", "");
-
-    }
 }
