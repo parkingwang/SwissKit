@@ -18,11 +18,11 @@ public class MapReaderTest {
         JSONObject map = JSON.parseObject("{'message': 'YES', 'errors':[{'code': 1999}, {'code': 2016}]}");
 
         MapReader reader = MapReader.of(map);
-        Assert.assertEquals("YES", reader.get("message", "-FAILED-"));
-        long code = reader.get("errors[0].code", 0);
+        Assert.assertEquals("YES", reader.getCasted("message", "-FAILED-"));
+        long code = reader.getCasted("errors[0].code", 0);
         Assert.assertEquals(1999, code );
-        Assert.assertEquals(JSON.parseObject("{'code': 1999}"), reader.get("errors[0]", new JSONObject(0)));
-        Assert.assertEquals(JSON.parseArray("[{'code': 1999}, {'code': 2016}]"), reader.get("errors", new JSONArray(0)));
+        Assert.assertEquals(JSON.parseObject("{'code': 1999}"), reader.getCasted("errors[0]", new JSONObject(0)));
+        Assert.assertEquals(JSON.parseArray("[{'code': 1999}, {'code': 2016}]"), reader.getCasted("errors", new JSONArray(0)));
     }
 
     @Test
@@ -38,9 +38,9 @@ public class MapReaderTest {
                 "}}");
 
         MapReader reader = MapReader.of(map);
-        final int val = reader.get("menu.id", 0);
+        final int val = reader.getInt("menu.id", 0);
         Assert.assertEquals(123, val);
-        Assert.assertEquals("CloseDoc()", reader.get("menu.popup.menuitem[0].onclick", "-FAILED-"));
+        Assert.assertEquals("CloseDoc()", reader.getString("menu.popup.menuitem[0].onclick", "-FAILED-"));
     }
 
     @Test
@@ -73,11 +73,11 @@ public class MapReaderTest {
                 "}}");
 
         MapReader reader = MapReader.of(map);
-        long width = reader.get("widget.window.width", 0);
+        long width = reader.getLong("widget.window.width", 0);
         Assert.assertEquals(500, width);
-        long hO = reader.get("widget.text.hOffset", 0);
+        long hO = reader.getLong("widget.text.hOffset", 0);
         Assert.assertEquals(250, hO);
-        Assert.assertEquals("center", reader.get("widget.text.alignment", "-FAILED-"));
-        Assert.assertEquals("-FAILED-", reader.get("haha.hoho", "-FAILED-"));
+        Assert.assertEquals("center", reader.getString("widget.text.alignment", "-FAILED-"));
+        Assert.assertEquals("-FAILED-", reader.getString("haha.hoho", "-FAILED-"));
     }
 }
