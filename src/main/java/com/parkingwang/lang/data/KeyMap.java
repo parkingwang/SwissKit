@@ -1,6 +1,7 @@
 package com.parkingwang.lang.data;
 
 import com.parkingwang.lang.kit.CastKit;
+import com.parkingwang.lang.kit.MapReader;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -153,6 +154,12 @@ public class KeyMap implements Map<String, Object> {
     public String getString(String key, String defaultValue) {
         final Object value = get(key);
         return CastKit.castString(value, defaultValue);
+    }
+
+    // Toolkit
+
+    public MapReader getReader(){
+        return MapReader.of(mRealMap);
     }
 
     @Override

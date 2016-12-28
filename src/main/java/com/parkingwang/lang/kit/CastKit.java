@@ -2,6 +2,9 @@ package com.parkingwang.lang.kit;
 
 import com.parkingwang.lang.Transformer;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 参考alibaba.fastjson的实现
  * @author Yoojia Chen (yoojiachen@gmail.com)
@@ -10,6 +13,26 @@ import com.parkingwang.lang.Transformer;
 final public class CastKit {
 
     private CastKit(){}
+
+    public static List castList(Object value, List defaultValue){
+        if (value == null){
+            return defaultValue;
+        }
+        if (value instanceof List){
+            return (List) value;
+        }
+        throw new ClassCastException("Object cannot cast to List, object: " + value);
+    }
+
+    public static Map castMap(Object value, Map defaultValue){
+        if (value == null){
+            return defaultValue;
+        }
+        if (value instanceof Map){
+            return (Map) value;
+        }
+        throw new ClassCastException("Object cannot cast to Map, object: " + value);
+    }
 
     public static String castString(Object value, String defaultValue) {
         if (value == null) {
