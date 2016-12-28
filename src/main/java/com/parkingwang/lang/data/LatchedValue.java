@@ -13,8 +13,11 @@ final public class LatchedValue<T> {
     private final CountDownLatch mLatch = new CountDownLatch(1);
     private T mValue;
 
-    public LatchedValue(@NotNull T value) {
-        setValue(value);
+    public LatchedValue() {
+    }
+
+    public LatchedValue(T value) {
+        mValue = value;
     }
 
     public boolean isSet() {

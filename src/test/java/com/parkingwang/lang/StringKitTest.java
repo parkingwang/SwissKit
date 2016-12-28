@@ -1,6 +1,7 @@
 package com.parkingwang.lang;
 
 import com.parkingwang.lang.kit.StringKit;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Test;
 

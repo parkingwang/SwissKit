@@ -8,5 +8,5 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface ThrowSupplier<T> {
 
-    @NotNull T get() throws Throwable;
+    @NotNull T call() throws Throwable;
 }

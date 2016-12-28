@@ -7,5 +7,5 @@ import org.jetbrains.annotations.NotNull;
  * @since 1.0.1
  */
 public interface Supplier<T> {
-    @NotNull T get();
+    @NotNull T call();
 }
