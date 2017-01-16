@@ -10,13 +10,15 @@ import java.util.concurrent.CountDownLatch;
  */
 final public class LatchedValue<T> {
 
-    private final CountDownLatch mLatch = new CountDownLatch(1);
+    private CountDownLatch mLatch;
     private T mValue;
 
     public LatchedValue() {
+        reset();
     }
 
     public LatchedValue(T value) {
+        reset();
         mValue = value;
     }
 
@@ -41,6 +43,11 @@ final public class LatchedValue<T> {
         synchronized (this){
             return mValue;
         }
+    }
+
+    public void reset(){
+        mValue = null;
+        mLatch = new CountDownLatch(1);
     }
 
     @Override
