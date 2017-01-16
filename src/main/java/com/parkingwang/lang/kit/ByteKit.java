@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 /**
  * 类似nio的byte工具，这里重新定义这些字节工具类，用于Android环境。
- * 在数据
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0
  */

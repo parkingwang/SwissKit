@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
+ * 延迟器加载实现
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0.1
  */
@@ -32,6 +33,9 @@ public class Lazy<T>{
         }
     }
 
+    /**
+     * 移除已加载的值
+     */
     public void remove(){
         mValue.set(null);
     }
