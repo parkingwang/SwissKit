@@ -6,8 +6,9 @@ import org.jetbrains.annotations.NotNull;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0
  */
-public interface Transformer<I, O> {
+public interface Transformer<T, R> {
 
-    @NotNull O call(I in);
+    @NotNull
+    R call(T in);
 
 }
