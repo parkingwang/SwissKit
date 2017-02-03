@@ -35,6 +35,7 @@ public class Lazy<T>{
 
     /**
      * @return 返回是否已设置值
+     * @since 2.3.2
      */
     public boolean isSet(){
         return null != mValue.get();
