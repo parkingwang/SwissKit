@@ -18,7 +18,7 @@ final public class LatchedValue<T> {
     }
 
     public LatchedValue(T value) {
-        reset();
+        mLatch = new CountDownLatch(1);
         mValue = value;
     }
 
