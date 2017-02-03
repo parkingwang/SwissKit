@@ -34,6 +34,13 @@ public class Lazy<T>{
     }
 
     /**
+     * @return 返回是否已设置值
+     */
+    public boolean isSet(){
+        return null != mValue.get();
+    }
+
+    /**
      * 移除已加载的值
      */
     public void remove(){
