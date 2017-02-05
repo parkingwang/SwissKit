@@ -36,8 +36,13 @@ public class PLazy<T, P>{
     /**
      * @return 返回是否已设置值
      */
-    public boolean isSet(){
+    public boolean isPresent(){
         return null != mValue.get();
+    }
+
+    @Deprecated
+    public boolean isSet(){
+        return isPresent();
     }
 
     /**
