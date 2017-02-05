@@ -34,6 +34,25 @@ public class PLazy<T, P>{
     }
 
     /**
+     * @return 返回是否已设置值
+     */
+    public boolean isPresent(){
+        return null != mValue.get();
+    }
+
+    @Deprecated
+    public boolean isSet(){
+        return isPresent();
+    }
+
+    /**
+     * @return 获取当前值
+     */
+    public T getPresent(){
+        return mValue.get();
+    }
+
+    /**
      * 移除已加载的值
      */
     public void remove(){

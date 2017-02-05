@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0.1
  */
-public class Lazy<T>{
+public class Lazy<T> {
 
     private final Supplier<T> mSupplier;
     private final AtomicReference<T> mValue = new AtomicReference<>(null);
@@ -31,6 +31,19 @@ public class Lazy<T>{
         }else{
             return cached;
         }
+    }
+
+    public T getPresent() {
+        return mValue.get();
+    }
+
+    @Deprecated
+    public boolean isSet(){
+        return isPresent();
+    }
+
+    public boolean isPresent(){
+        return null != mValue.get();
     }
 
     /**
