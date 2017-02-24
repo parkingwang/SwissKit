@@ -102,6 +102,15 @@ public class KeyMap implements Map<String, Object> {
 
     // Extensions
 
+    public <T> T getCast(String key, T defaultValue){
+        final Object value = get(key);
+        if (value == null){
+            return defaultValue;
+        }else {
+            return (T) value;
+        }
+    }
+
     public int getIntValue(String key) {
         return getInt(key, 0);
     }
