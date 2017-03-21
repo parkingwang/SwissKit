@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0.7
  */
+@Deprecated
 final public class LatchedValue<T> extends Latched<T> {
 
     @Deprecated

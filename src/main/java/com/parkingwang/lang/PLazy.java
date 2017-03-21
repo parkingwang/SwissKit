@@ -5,6 +5,7 @@ package com.parkingwang.lang;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 2.3
  */
+@Deprecated
 public class PLazy<T, A> extends ArgumentedLazy<T, A> {
 
     public PLazy(PSupplier<T, A> supplier) {

@@ -5,6 +5,7 @@ package com.parkingwang.lang;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 2.3
  */
+@Deprecated
 public interface PSupplier<T, A> extends ArgumentedSupplier<T, A> {
 
 }

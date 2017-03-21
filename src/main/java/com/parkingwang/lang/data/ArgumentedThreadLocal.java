@@ -1,6 +1,6 @@
 package com.parkingwang.lang.data;
 
-import com.parkingwang.lang.PSupplier;
+import com.parkingwang.lang.ArgumentedSupplier;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -12,9 +12,9 @@ public class ArgumentedThreadLocal<T, A> extends ThreadLocal<T> {
 
     private final AtomicReference<A> mArg = new AtomicReference<>();
 
-    private final PSupplier<T, A> mSupplier;
+    private final ArgumentedSupplier<T, A> mSupplier;
 
-    public ArgumentedThreadLocal(PSupplier<T, A> supplier) {
+    public ArgumentedThreadLocal(ArgumentedSupplier<T, A> supplier) {
         mSupplier = supplier;
     }
 
