@@ -24,7 +24,11 @@ final public class ListKit {
     }
 
     public static <T> ArrayList<T> toArrayList(Collection<T> items) {
-        return new ArrayList<>(items);
+        if (items instanceof ArrayList) {
+            return (ArrayList<T>) items;
+        }else{
+            return new ArrayList<>(items);
+        }
     }
 
     public static <T> void forEach(Collection<T> items, Indexed<T> indexed) {
