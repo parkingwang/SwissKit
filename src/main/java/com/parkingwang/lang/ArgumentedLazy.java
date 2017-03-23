@@ -5,24 +5,24 @@ import org.jetbrains.annotations.NotNull;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * 延迟器加载实现
+ * 延迟器加载实现，带参数接口
  * @author Yoojia Chen (yoojiachen@gmail.com)
- * @since 1.0.1
+ * @since 2.3
  */
-public class Lazy<T> {
+public class ArgumentedLazy<T, A>{
 
-    private final Supplier<T> mSupplier;
+    private final ArgumentedSupplier<T, A> mSupplier;
     private final AtomicReference<T> mValue = new AtomicReference<>(null);
 
-    public Lazy(Supplier<T> supplier) {
+    public ArgumentedLazy(ArgumentedSupplier<T, A> supplier) {
         this.mSupplier = supplier;
     }
 
     @NotNull
-    public T get(){
+    public T get(A args){
         final T cached = mValue.get();
         if (cached == null) {
-            final T newObj = mSupplier.call();
+            final T newObj = mSupplier.call(args);
             if (mValue.compareAndSet(null, newObj)) {
                 return newObj;
             }else{
@@ -33,8 +33,11 @@ public class Lazy<T> {
         }
     }
 
-    public T getPresent() {
-        return mValue.get();
+    /**
+     * @return 返回是否已设置值
+     */
+    public boolean isPresent(){
+        return null != mValue.get();
     }
 
     @Deprecated
@@ -42,8 +45,11 @@ public class Lazy<T> {
         return isPresent();
     }
 
-    public boolean isPresent(){
-        return null != mValue.get();
+    /**
+     * @return 获取当前值
+     */
+    public T getPresent(){
+        return mValue.get();
     }
 
     /**
@@ -53,7 +59,7 @@ public class Lazy<T> {
         mValue.set(null);
     }
 
-    public static <T> Lazy<T> from(Supplier<T> supplier) {
-        return new Lazy<>(supplier);
+    public static <T, P> ArgumentedLazy<T, P> from(ArgumentedSupplier<T, P> supplier) {
+        return new ArgumentedLazy<>(supplier);
     }
 }

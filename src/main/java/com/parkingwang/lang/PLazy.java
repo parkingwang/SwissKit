@@ -1,46 +1,14 @@
 package com.parkingwang.lang;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.concurrent.atomic.AtomicReference;
-
 /**
  * 延迟器加载实现，带参数接口
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 2.3
  */
-public class PLazy<T, P>{
+@Deprecated
+public class PLazy<T, A> extends ArgumentedLazy<T, A> {
 
-    private final PSupplier<T, P> mSupplier;
-    private final AtomicReference<T> mValue = new AtomicReference<>(null);
-
-    public PLazy(PSupplier<T, P> supplier) {
-        this.mSupplier = supplier;
-    }
-
-    @NotNull
-    public T get(P args){
-        final T cached = mValue.get();
-        if (cached == null) {
-            final T newObj = mSupplier.call(args);
-            if (mValue.compareAndSet(null, newObj)) {
-                return newObj;
-            }else{
-                return mValue.get();
-            }
-        }else{
-            return cached;
-        }
-    }
-
-    /**
-     * 移除已加载的值
-     */
-    public void remove(){
-        mValue.set(null);
-    }
-
-    public static <T, P> PLazy<T, P> from(PSupplier<T, P> supplier) {
-        return new PLazy<>(supplier);
+    public PLazy(PSupplier<T, A> supplier) {
+        super(supplier);
     }
 }

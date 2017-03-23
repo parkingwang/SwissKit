@@ -1,6 +1,7 @@
 package com.parkingwang.lang.kit;
 
 import com.parkingwang.lang.Transformer;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
@@ -44,15 +45,29 @@ final public class CastKit {
         throw new ClassCastException("Object cannot cast to String, object: " + value);
     }
 
-    public static Boolean castBoolean(Object value, Boolean defaultValue) {
+    public static Boolean castBoolean(final Object value, Boolean defaultValue) {
         if (value == null) {
             return defaultValue;
         }
         if (value instanceof Boolean) {
             return ((Boolean) value);
-        }else{
-            throw new ClassCastException("Object cannot cast to boolean, object: " + value);
         }
+        return parseStringTo(value, defaultValue, new Transformer<String, Boolean>() {
+            @NotNull
+            @Override
+            public Boolean call(String arg) {
+                return Boolean.valueOf(arg);
+            }
+        }, new Transformer<Object, Boolean>() {
+            @NotNull
+            @Override
+            public Boolean call(Object arg) {
+                if (arg instanceof Integer) {
+                    return ((Integer)arg) > 0;
+                }
+                throw new ClassCastException("Object cannot cast to Boolean, object: " + value);
+            }
+        });
     }
 
     public static Integer castInt(final Object value, final Integer defaultValue) {
@@ -70,6 +85,8 @@ final public class CastKit {
                 return Integer.parseInt(arg);
             }
         }, new Transformer<Object, Integer>() {
+            @NotNull
+            @Override
             public Integer call(Object arg) {
                 if (arg instanceof Boolean) {
                     return ((Boolean) arg) ? 1 : 0;
