@@ -11,10 +11,10 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class ArgumentedLazy<T, A>{
 
-    private final PSupplier<T, A> mSupplier;
+    private final ArgumentedSupplier<T, A> mSupplier;
     private final AtomicReference<T> mValue = new AtomicReference<>(null);
 
-    public ArgumentedLazy(PSupplier<T, A> supplier) {
+    public ArgumentedLazy(ArgumentedSupplier<T, A> supplier) {
         this.mSupplier = supplier;
     }
 
@@ -59,7 +59,7 @@ public class ArgumentedLazy<T, A>{
         mValue.set(null);
     }
 
-    public static <T, P> ArgumentedLazy<T, P> from(PSupplier<T, P> supplier) {
+    public static <T, P> ArgumentedLazy<T, P> from(ArgumentedSupplier<T, P> supplier) {
         return new ArgumentedLazy<>(supplier);
     }
 }
