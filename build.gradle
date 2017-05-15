@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    runtime 'org.jetbrains:annotations-java5:15.0'
+    compile 'org.jetbrains:annotations-java5:15.0'
 
     testCompile 'com.alibaba:fastjson:1.2.23'
     testCompile 'junit:junit:4.11'
