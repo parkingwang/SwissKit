@@ -5,7 +5,7 @@ package com.parkingwang.lang;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 2.3
  */
-public interface ArgumentedSupplier<T, A> {
+public interface ArgSupplier<T, A> {
 
     /**
      * 返回一个值
