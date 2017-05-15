@@ -1,7 +1,5 @@
 package com.parkingwang.lang.data;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -31,14 +29,13 @@ public class Latched<T> {
         return !isPresent();
     }
 
-    public synchronized void set(@NotNull T value) {
+    public synchronized void set(T value) {
         if (!isPresent()){
             mValue = value;
             mLatch.countDown();
         }
     }
 
-    @NotNull
     public T get() throws InterruptedException {
         mLatch.await();
         synchronized (this){
@@ -46,7 +43,6 @@ public class Latched<T> {
         }
     }
 
-    @NotNull
     public T get(long timeout, TimeUnit unit) throws InterruptedException {
         mLatch.await(timeout, unit);
         synchronized (this){

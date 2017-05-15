@@ -1,9 +1,10 @@
 package com.parkingwang.lang.kit;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
 /**
@@ -18,75 +19,75 @@ public class MapReader {
         mMap = map;
     }
 
-    public static MapReader of(@NotNull Map<String, Object> map){
+    public static MapReader of(Map<String, Object> map){
         return new MapReader(ObjectKit.notNull(map));
     }
 
-    public boolean getBoolean(@NotNull String nameChain, boolean defaultValue){
+    public boolean getBoolean(String nameChain, boolean defaultValue){
         return CastKit.castBoolean(get(nameChain), defaultValue);
     }
 
-    public boolean getBooleanValue(@NotNull String nameChain){
+    public boolean getBooleanValue(String nameChain){
         return getBoolean(nameChain, false);
     }
 
-    public int getIntValue(@NotNull String nameChain){
+    public int getIntValue(String nameChain){
         return getInt(nameChain, 0);
     }
 
-    public int getInt(@NotNull String nameChain, int defaultValue){
+    public int getInt(String nameChain, int defaultValue){
         return CastKit.castInt(get(nameChain), defaultValue);
     }
 
-    public long getLongValue(@NotNull String nameChain) {
+    public long getLongValue(String nameChain) {
         return getLong(nameChain, 0L);
     }
 
-    public long getLong(@NotNull String nameChain, long defaultValue){
+    public long getLong(String nameChain, long defaultValue){
         return CastKit.castLong(get(nameChain), defaultValue);
     }
 
-    public float getFloatValue(@NotNull String nameChain){
+    public float getFloatValue(String nameChain){
         return getFloat(nameChain, 0f);
     }
 
-    public float getFloat(@NotNull String nameChain, float defaultValue){
+    public float getFloat(String nameChain, float defaultValue){
         return CastKit.castFloat(get(nameChain), defaultValue);
     }
 
-    public double getDoubleValue(@NotNull String nameChain){
+    public double getDoubleValue(String nameChain){
         return getDouble(nameChain, 0.0);
     }
 
-    public double getDouble(@NotNull String nameChain, double defaultValue){
+    public double getDouble(String nameChain, double defaultValue){
         return CastKit.castDouble(get(nameChain), defaultValue);
     }
 
-    public String getString(@NotNull String nameChain){
+    public String getString(String nameChain){
         return getString(nameChain, "");
     }
 
-    public String getString(@NotNull String nameChain, String defaultValue){
+    public String getString(String nameChain, String defaultValue){
         return CastKit.castString(get(nameChain), defaultValue);
     }
 
-    public Map<String, Object> getObject(@NotNull String nameChain){
+    public Map<String, Object> getObject(String nameChain){
         return getObject(nameChain, new HashMap<String, Object>(0));
     }
 
-    public Map<String, Object> getObject(@NotNull String nameChain, Map defaultValue){
+    public Map<String, Object> getObject(String nameChain, Map defaultValue){
         return CastKit.castMap(get(nameChain), defaultValue);
     }
 
-    public List<Map> getArray(@NotNull String nameChain){
+    public List<Map> getArray(String nameChain){
         return getArray(nameChain, new ArrayList<Map>(0));
     }
 
-    public List getArray(@NotNull String nameChain, List defaultValue){
+    public List getArray(String nameChain, List defaultValue){
         return CastKit.castList(get(nameChain), defaultValue);
     }
 
-    public <T> T getCasted(@NotNull String nameChain, T defValue){
+    public <T> T getCasted(String nameChain, T defValue){
         final Object value = get(nameChain);
         if (value == null){
             return defValue;
@@ -95,8 +96,7 @@ public class MapReader {
         }
     }
 
-    @Nullable
-    public Object get(@NotNull String nameChain) {
+    public Object get(String nameChain) {
         // app.keys[0].name -> app/keys/[0]/name
         // app -> app
         // app.keys[0] -> app/keys/[0]

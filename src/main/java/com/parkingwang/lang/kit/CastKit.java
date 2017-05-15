@@ -1,7 +1,6 @@
 package com.parkingwang.lang.kit;
 
 import com.parkingwang.lang.Transformer;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
@@ -53,13 +52,11 @@ final public class CastKit {
             return ((Boolean) value);
         }
         return parseStringTo(value, defaultValue, new Transformer<String, Boolean>() {
-            @NotNull
             @Override
             public Boolean call(String arg) {
                 return Boolean.valueOf(arg);
             }
         }, new Transformer<Object, Boolean>() {
-            @NotNull
             @Override
             public Boolean call(Object arg) {
                 if (arg instanceof Integer) {
@@ -85,7 +82,6 @@ final public class CastKit {
                 return Integer.parseInt(arg);
             }
         }, new Transformer<Object, Integer>() {
-            @NotNull
             @Override
             public Integer call(Object arg) {
                 if (arg instanceof Boolean) {

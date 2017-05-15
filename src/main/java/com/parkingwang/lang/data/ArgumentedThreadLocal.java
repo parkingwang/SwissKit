@@ -33,13 +33,4 @@ public class ArgumentedThreadLocal<T, A> extends ThreadLocal<T> {
         throw new UnsupportedOperationException("Use get(arg) instead");
     }
 
-    @Override
-    public void set(T value) {
-        super.set(value);
-    }
-
-    @Override
-    public void remove() {
-        super.remove();
-    }
 }

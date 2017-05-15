@@ -1,7 +1,5 @@
 package com.parkingwang.lang;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -18,7 +16,6 @@ public class ArgumentedLazy<T, A>{
         this.mSupplier = supplier;
     }
 
-    @NotNull
     public T get(A args){
         final T cached = mValue.get();
         if (cached == null) {
