@@ -1,7 +1,5 @@
 package com.parkingwang.lang;
 
-import org.jetbrains.annotations.NotNull;
-
 /**
  * 过滤接口
  * @author Yoojia Chen (yoojiachen@gmail.com)
@@ -14,6 +12,6 @@ public interface Filter<T> {
      * @param item 用于被测试的值
      * @return 是否接受此值
      */
-    boolean test(@NotNull T item);
+    boolean test(T item);
 
 }

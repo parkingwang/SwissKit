@@ -24,6 +24,14 @@ final public class ListKit {
     }
 
     public static <T> ArrayList<T> toArrayList(Collection<T> items) {
+        if (items instanceof ArrayList) {
+            return (ArrayList<T>) items;
+        }else{
+            return newArrayList(items);
+        }
+    }
+
+    public static <T> ArrayList<T> newArrayList(Collection<T> items){
         return new ArrayList<>(items);
     }
 

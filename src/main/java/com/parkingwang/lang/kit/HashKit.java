@@ -1,5 +1,8 @@
 package com.parkingwang.lang.kit;
 
+import com.parkingwang.lang.ArgumentedSupplier;
+import com.parkingwang.lang.data.ArgumentedThreadLocal;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -11,6 +14,17 @@ final public class HashKit {
 
     private HashKit(){}
 
+    private static ArgumentedThreadLocal<MessageDigest, String> SHA1 = new ArgumentedThreadLocal<>(new ArgumentedSupplier<MessageDigest, String>() {
+        @Override
+        public MessageDigest call(String algorithm) {
+            try {
+                return MessageDigest.getInstance(algorithm);
+            } catch (NoSuchAlgorithmException e) {
+                throw new IllegalArgumentException(e);
+            }
+        }
+    });
+
     public static byte[] hash(String algorithm, String content) throws NoSuchAlgorithmException {
         final MessageDigest md = MessageDigest.getInstance(algorithm);
         return md.digest(content.getBytes());
@@ -18,7 +32,7 @@ final public class HashKit {
 
     public static byte[] toMd5(String content) {
         try {
-            return hash("MD5", content);
+            return hash("md5", content);
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalArgumentException("MD5 Algorithm is not supported !");
         }
@@ -29,11 +43,10 @@ final public class HashKit {
     }
 
     public static byte[] toSHA1(String content) {
-        try {
-            return hash("SHA-1", content);
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalArgumentException("SHA-256 Algorithm is not supported !");
-        }
+        final MessageDigest sha1 = SHA1.get("sha-1");
+        sha1.reset();
+        sha1.update(content.getBytes());
+        return sha1.digest();
     }
 
     public static String toSHA1Hex(String content) {
@@ -42,7 +55,7 @@ final public class HashKit {
 
     public static byte[] toSHA256(String content) {
         try {
-            return hash("SHA-256", content);
+            return hash("sha-256", content);
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalArgumentException("SHA-256 Algorithm is not supported !");
         }

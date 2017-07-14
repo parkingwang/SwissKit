@@ -34,11 +34,6 @@ public class Lazy<T> {
         return mValue.get();
     }
 
-    @Deprecated
-    public boolean isSet(){
-        return isPresent();
-    }
-
     public boolean isPresent(){
         return null != mValue.get();
     }
