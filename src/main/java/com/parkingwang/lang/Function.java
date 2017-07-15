@@ -2,8 +2,10 @@ package com.parkingwang.lang;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
- * @since 1.0
+ * @since 2.7
  */
-@Deprecated
-public interface Transformer<T, R> extends Function<T, R> {
+public interface Function<T, R> {
+
+    R call(T in);
+
 }

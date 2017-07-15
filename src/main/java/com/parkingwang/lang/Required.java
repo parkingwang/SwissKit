@@ -34,9 +34,13 @@ public final class Required<T> {
         return null != mValue;
     }
 
+    public boolean isNotPresent(){
+        return !isPresent();
+    }
+
     public T getChecked(){
         if(mValue == null) {
-            throw new NullPointerException();
+            throw new NullPointerException("Value not set yet");
         } else {
             return mValue;
         }

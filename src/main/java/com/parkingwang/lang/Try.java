@@ -11,14 +11,14 @@ final public class Try {
     private Try(){}
 
     public static void close(final AutoCloseable closeable){
-        ignore(new ThrowAction.ThrowAction0() {
+        ignore(new ActionThrow.Action() {
             @Override public void call() throws Throwable {
                 if (closeable != null) closeable.close();
             }
         });
     }
 
-    public static void ignore(ThrowAction action){
+    public static void ignore(ActionThrow action){
         try{
             action.invoke();
         }catch (Throwable t){
@@ -26,7 +26,7 @@ final public class Try {
         }
     }
 
-    public static <T> T die(ThrowSupplier<T> supplier){
+    public static <T> T die(SupplierThrow<T> supplier){
         try{
             return supplier.call();
         }catch (Throwable t){
