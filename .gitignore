@@ -1,2 +1,6 @@
 .idea/
-.gitignore
+/out/
+.gradle
+build/
+local.properties
+
