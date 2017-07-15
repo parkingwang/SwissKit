@@ -5,11 +5,6 @@ package com.parkingwang.lang;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 2.3
  */
-public interface ArgSupplier<T, A> {
-
-    /**
-     * 返回一个值
-     * @return 值对象，非Null
-     */
-    T call(A args);
+@Deprecated
+public interface ArgSupplier<T, A> extends SupplierArg<T, A>{
 }

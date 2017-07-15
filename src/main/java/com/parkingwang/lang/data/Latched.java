@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 2.3.3
  */
+@Deprecated
 public class Latched<T> {
 
     private CountDownLatch mLatch;
