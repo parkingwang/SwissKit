@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.parkingwang.lang.MapReaderTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2016-12-27T14:56:43" hostname="CHEN-WIN10" time="0.046">
-  <properties/>
-  <testcase name="testObject1" classname="com.parkingwang.lang.MapReaderTest" time="0.046"/>
-  <testcase name="testObject2" classname="com.parkingwang.lang.MapReaderTest" time="0.0"/>
-  <testcase name="testObject" classname="com.parkingwang.lang.MapReaderTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
