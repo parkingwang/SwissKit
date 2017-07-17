@@ -1,20 +1,20 @@
 package com.parkingwang.lang.data;
 
-import com.parkingwang.lang.ArgumentedSupplier;
+import com.parkingwang.lang.SupplierArg;
 
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
- * @since 2.5.0
+ * @since 2.7
  */
-public class ArgumentedThreadLocal<T, A> extends ThreadLocal<T> {
+public class ThreadLocalArg<T, A> extends ThreadLocal<T> {
 
     private final AtomicReference<A> mArg = new AtomicReference<>();
 
-    private final ArgumentedSupplier<T, A> mSupplier;
+    private final SupplierArg<T, A> mSupplier;
 
-    public ArgumentedThreadLocal(ArgumentedSupplier<T, A> supplier) {
+    public ThreadLocalArg(SupplierArg<T, A> supplier) {
         mSupplier = supplier;
     }
 
@@ -33,13 +33,4 @@ public class ArgumentedThreadLocal<T, A> extends ThreadLocal<T> {
         throw new UnsupportedOperationException("Use get(arg) instead");
     }
 
-    @Override
-    public void set(T value) {
-        super.set(value);
-    }
-
-    @Override
-    public void remove() {
-        super.remove();
-    }
 }

@@ -1,14 +1,11 @@
 package com.parkingwang.lang;
 
-import org.jetbrains.annotations.NotNull;
-
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
- * @since 1.0
+ * @since 2.7
  */
-public interface Transformer<T, R> {
+public interface Function<T, R> {
 
-    @NotNull
     R call(T in);
 
 }

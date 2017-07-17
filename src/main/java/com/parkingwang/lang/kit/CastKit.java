@@ -1,7 +1,6 @@
 package com.parkingwang.lang.kit;
 
-import com.parkingwang.lang.Transformer;
-import org.jetbrains.annotations.NotNull;
+import com.parkingwang.lang.Function;
 
 import java.util.List;
 import java.util.Map;
@@ -52,14 +51,12 @@ final public class CastKit {
         if (value instanceof Boolean) {
             return ((Boolean) value);
         }
-        return parseStringTo(value, defaultValue, new Transformer<String, Boolean>() {
-            @NotNull
+        return parseStringTo(value, defaultValue, new Function<String, Boolean>() {
             @Override
             public Boolean call(String arg) {
                 return Boolean.valueOf(arg);
             }
-        }, new Transformer<Object, Boolean>() {
-            @NotNull
+        }, new Function<Object, Boolean>() {
             @Override
             public Boolean call(Object arg) {
                 if (arg instanceof Integer) {
@@ -80,12 +77,11 @@ final public class CastKit {
         if (value instanceof Number) {
             return ((Number) value).intValue();
         }
-        return parseStringTo(value, defaultValue, new Transformer<String, Integer>() {
+        return parseStringTo(value, defaultValue, new Function<String, Integer>() {
             public Integer call(String arg) {
                 return Integer.parseInt(arg);
             }
-        }, new Transformer<Object, Integer>() {
-            @NotNull
+        }, new Function<Object, Integer>() {
             @Override
             public Integer call(Object arg) {
                 if (arg instanceof Boolean) {
@@ -106,11 +102,11 @@ final public class CastKit {
         if (value instanceof Number) {
             return ((Number) value).longValue();
         }
-        return parseStringTo(value, defaultValue, new Transformer<String, Long>() {
+        return parseStringTo(value, defaultValue, new Function<String, Long>() {
             public Long call(String arg) {
                 return Long.parseLong(arg);
             }
-        }, new Transformer<Object, Long>() {
+        }, new Function<Object, Long>() {
             public Long call(Object arg) {
                 if (arg instanceof Boolean) {
                     return ((Boolean) arg) ? 1L : 0;
@@ -130,11 +126,11 @@ final public class CastKit {
         if (value instanceof Number) {
             return ((Number) value).floatValue();
         }
-        return parseStringTo(value, defaultValue, new Transformer<String, Float>() {
+        return parseStringTo(value, defaultValue, new Function<String, Float>() {
             public Float call(String arg) {
                 return Float.parseFloat(arg);
             }
-        }, new Transformer<Object, Float>() {
+        }, new Function<Object, Float>() {
             public Float call(Object arg) {
                 if (arg instanceof Boolean) {
                     return ((Boolean) arg) ? 1f : 0;
@@ -154,11 +150,11 @@ final public class CastKit {
         if (value instanceof Number) {
             return ((Number) value).doubleValue();
         }
-        return parseStringTo(value, defaultValue, new Transformer<String, Double>() {
+        return parseStringTo(value, defaultValue, new Function<String, Double>() {
             public Double call(String arg) {
                 return Double.parseDouble(arg);
             }
-        }, new Transformer<Object, Double>() {
+        }, new Function<Object, Double>() {
             public Double call(Object arg) {
                 if (arg instanceof Boolean) {
                     return ((Boolean) arg) ? 1.0 : 0;
@@ -168,7 +164,7 @@ final public class CastKit {
         });
     }
 
-    private static <T> T parseStringTo(Object value, T defaultValue, Transformer<String, T> isAction, Transformer<Object, T> elseAction) {
+    private static <T> T parseStringTo(Object value, T defaultValue, Function<String, T> isAction, Function<Object, T> elseAction) {
         if (value instanceof String) {
             String str = (String) value;
             if (str.length() == 0 || "null".equalsIgnoreCase(str)) {

@@ -2,9 +2,10 @@ package com.parkingwang.lang;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
- * @since 1.0
+ * @since 2.7
  */
-public interface Indexed<T> {
+public interface Predicate<T> {
 
-    void invoke(int index, T item);
+    boolean test(T item);
+
 }

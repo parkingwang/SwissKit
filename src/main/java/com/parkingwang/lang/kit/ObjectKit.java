@@ -1,6 +1,5 @@
 package com.parkingwang.lang.kit;
 
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
@@ -10,13 +9,11 @@ final public class ObjectKit {
 
     private ObjectKit(){}
 
-    @NotNull
     public static <T> T notNull(T arg) {
         return notNull(arg, "Object cannot be null");
     }
 
-    @NotNull
-    public static <T> T notNull(T arg, @NotNull String failMessage){
+    public static <T> T notNull(T arg, String failMessage){
         if (arg == null) {
             throw new NullPointerException(failMessage);
         }

@@ -2,9 +2,9 @@ package com.parkingwang.lang;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
- * @since 1.0
+ * @since 1.0.6
  */
-public interface Indexed<T> {
+public interface SupplierThrow<T> {
 
-    void invoke(int index, T item);
+    T call() throws Throwable;
 }
