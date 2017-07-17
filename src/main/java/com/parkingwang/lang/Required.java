@@ -1,5 +1,7 @@
 package com.parkingwang.lang;
 
+import com.parkingwang.lang.kit.ObjectKit;
+
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -36,6 +38,13 @@ public final class Required<T> {
 
     public boolean isNotPresent(){
         return !isPresent();
+    }
+
+    public void ifPresent(Consumer<T> consumer){
+        ObjectKit.notNull(consumer);
+        if (mValue != null) {
+            consumer.call(mValue);
+        }
     }
 
     public T getChecked(){

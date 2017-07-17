@@ -1,7 +1,7 @@
 package com.parkingwang.lang.kit;
 
-import com.parkingwang.lang.ArgSupplier;
-import com.parkingwang.lang.data.ArgThreadLocal;
+import com.parkingwang.lang.SupplierArg;
+import com.parkingwang.lang.data.ThreadLocalArg;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,7 +14,7 @@ final public class HashKit {
 
     private HashKit(){}
 
-    private static ArgThreadLocal<MessageDigest, String> SHA1 = new ArgThreadLocal<>(new ArgSupplier<MessageDigest, String>() {
+    private static ThreadLocalArg<MessageDigest, String> SHA1 = new ThreadLocalArg<>(new SupplierArg<MessageDigest, String>() {
         @Override
         public MessageDigest call(String algorithm) {
             try {

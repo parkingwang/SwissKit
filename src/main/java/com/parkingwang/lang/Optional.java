@@ -21,35 +21,42 @@ public class Optional<T> {
         return (Optional<T>) EMPTY;
     }
     
-    private final T value;
+    private final T mValue;
 
     private Optional() {
-        this.value = null;
+        this.mValue = null;
     }
     
     private Optional(T value) {
-        this.value = ObjectKit.notNull(value);
+        this.mValue = ObjectKit.notNull(value);
     }
     
     public T get() {
-        if (value == null) {
+        if (mValue == null) {
             throw new NoSuchElementException("No value present");
         }
-        return value;
+        return mValue;
     }
 
     public T orElse(T other) {
-        return value != null ? value : other;
+        return mValue != null ? mValue : other;
     }
-    
+
     public boolean isPresent() {
-        return value != null;
+        return mValue != null;
     }
 
     public boolean isNotPresent(){
         return !isPresent();
     }
-    
+
+    public void ifPresent(Consumer<T> consumer){
+        ObjectKit.notNull(consumer);
+        if (mValue != null) {
+            consumer.call(mValue);
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -61,18 +68,18 @@ public class Optional<T> {
         }
 
         Optional<?> other = (Optional<?>) obj;
-        return ObjectKit.equals(value, other.value);
+        return ObjectKit.equals(mValue, other.mValue);
     }
     
     @Override
     public int hashCode() {
-        return ObjectKit.hashCode(value);
+        return ObjectKit.hashCode(mValue);
     }
     
     @Override
     public String toString() {
-        return value != null
-            ? String.format("Optional[%s]", value)
+        return mValue != null
+            ? String.format("Optional[%s]", mValue)
             : "Optional.empty";
     }
 }
