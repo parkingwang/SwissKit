@@ -1,5 +1,7 @@
 package com.parkingwang.lang;
 
+import com.parkingwang.lang.kit.ObjectKit;
+
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -34,9 +36,20 @@ public final class Required<T> {
         return null != mValue;
     }
 
+    public boolean isNotPresent(){
+        return !isPresent();
+    }
+
+    public void ifPresent(Consumer<T> consumer){
+        ObjectKit.notNull(consumer);
+        if (mValue != null) {
+            consumer.call(mValue);
+        }
+    }
+
     public T getChecked(){
         if(mValue == null) {
-            throw new NullPointerException();
+            throw new NullPointerException("Value not set yet");
         } else {
             return mValue;
         }

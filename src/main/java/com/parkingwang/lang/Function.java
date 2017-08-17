@@ -2,9 +2,10 @@ package com.parkingwang.lang;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
- * @since 1.0.6
+ * @since 2.7
  */
-public interface ThrowSupplier<T> {
+public interface Function<T, R> {
 
-    T call() throws Throwable;
+    R call(T in);
+
 }
