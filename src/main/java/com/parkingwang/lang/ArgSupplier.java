@@ -5,7 +5,11 @@ package com.parkingwang.lang;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 2.3
  */
-@Deprecated
-public interface PSupplier<T, A> extends ArgumentedSupplier<T, A> {
+public interface ArgSupplier<T, A> {
 
+    /**
+     * 返回一个值
+     * @return 值对象，非Null
+     */
+    T call(A args);
 }

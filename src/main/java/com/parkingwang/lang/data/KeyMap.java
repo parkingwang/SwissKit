@@ -102,6 +102,20 @@ public class KeyMap implements Map<String, Object> {
 
     // Extensions
 
+    public KeyMap putIfNotNull(String key, Object value){
+        if (value != null) {
+            put(key, value);
+        }
+        return this;
+    }
+
+    public KeyMap putIfNotEmpty(String key, CharSequence value){
+        if (value != null && value.length() > 0) {
+            put(key, value);
+        }
+        return this;
+    }
+
     public <T> T getCast(String key, T defaultValue){
         final Object value = get(key);
         if (value == null){

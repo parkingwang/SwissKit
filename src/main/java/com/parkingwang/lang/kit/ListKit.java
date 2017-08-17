@@ -3,43 +3,29 @@ package com.parkingwang.lang.kit;
 import com.parkingwang.lang.Indexed;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0
  */
+@Deprecated
 final public class ListKit {
 
-    private ListKit() {}
-
     public static <T> ArrayList<T> arrayListOf(T...items){
-        if (items.length == 0) {
-            return new ArrayList<>(0);
-        }else{
-            return toArrayList(Arrays.asList(items));
-        }
+        return CollectionKit.arrayListOf(items);
     }
 
     public static <T> ArrayList<T> toArrayList(Collection<T> items) {
-        if (items instanceof ArrayList) {
-            return (ArrayList<T>) items;
-        }else{
-            return newArrayList(items);
-        }
+        return CollectionKit.toArrayList(items);
     }
 
     public static <T> ArrayList<T> newArrayList(Collection<T> items){
-        return new ArrayList<>(items);
+        return CollectionKit.newArrayList(items);
     }
 
     public static <T> void forEach(Collection<T> items, Indexed<T> indexed) {
-        final List<T> list = toArrayList(items);
-        for (int index = 0; index < list.size(); index++) {
-            indexed.invoke(index, list.get(index));
-        }
+        CollectionKit.forEach(items, indexed);
     }
 
 }

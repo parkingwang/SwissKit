@@ -1,9 +1,9 @@
 package com.parkingwang.lang.kit;
 
 import com.parkingwang.lang.Indexed;
-import org.jetbrains.annotations.NotNull;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -48,7 +48,6 @@ final public class StringKit {
      * @param value 需要替换的值，如 yoojia
      * @return 返回替换Marker后的新字符串，如 /service/api/yoojia
      */
-    @NotNull
     public static String replaceMarker(String template, String marker, Object value){
         int foundIndex = template.indexOf(marker);
         if (foundIndex == -1) {
@@ -72,7 +71,6 @@ final public class StringKit {
         }
     }
 
-    @NotNull
     public static String[] split(String template, String separator){
         final List<String> output = new ArrayList<>();
         int index = template.indexOf(separator);

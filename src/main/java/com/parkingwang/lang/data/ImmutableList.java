@@ -2,9 +2,15 @@ package com.parkingwang.lang.data;
 
 import com.parkingwang.lang.kit.ListKit;
 import com.parkingwang.lang.kit.ObjectKit;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
@@ -22,13 +28,11 @@ public class ImmutableList<E> implements Iterable<E> {
         this.mSize = mElementData.length;
     }
 
-    @NotNull
     @SuppressWarnings("unchecked")
     public static <E> ImmutableList<E> empty(){
         return EMPTY;
     }
 
-    @NotNull
     public E get(int position) {
         return mElementData[position];
     }
@@ -62,17 +66,14 @@ public class ImmutableList<E> implements Iterable<E> {
         return -1;
     }
 
-    @NotNull
     public ArrayList<E> toList(){
         return ListKit.arrayListOf(mElementData);
     }
 
-    @NotNull
     public E[] toArray() {
         return Arrays.copyOf(mElementData, mSize);
     }
 
-    @NotNull
     @SuppressWarnings("unchecked")
     public <T> T[] toArray(T[] array) {
         if (array.length < mSize) {
@@ -95,7 +96,6 @@ public class ImmutableList<E> implements Iterable<E> {
         return Arrays.toString(mElementData);
     }
 
-    @NotNull
     public ImmutableList<E> concat(ImmutableList<E> src){
         if (src.isNotEmpty()){
             final List<E> data = ListKit.arrayListOf(mElementData);
@@ -106,7 +106,6 @@ public class ImmutableList<E> implements Iterable<E> {
         }
     }
 
-    @NotNull
     @SuppressWarnings("unchecked")
     public ImmutableList<E> subList(int fromIndex, int toIndex){
         if (fromIndex == toIndex){
@@ -122,7 +121,6 @@ public class ImmutableList<E> implements Iterable<E> {
         }
     }
 
-    @NotNull
     @SuppressWarnings("unchecked")
     public static <E> ImmutableList<E> listOf(Collection<E> data) {
         final E[] array = (E[]) data.toArray();

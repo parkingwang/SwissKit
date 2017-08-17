@@ -18,14 +18,12 @@ repositories {
 }
 
 dependencies {
-    compile 'org.jetbrains:annotations-java5:15.0'
-
     testCompile 'com.alibaba:fastjson:1.2.23'
     testCompile 'junit:junit:4.11'
 }
 
 ext{
-    projVersion = '2.5.1'
+    projVersion = '2.6f'
     projArtivactId = 'swiss'
     projName = 'Swiss'
     projDesc = 'Swiss: A Lightweight Java Lang toolkit library'
