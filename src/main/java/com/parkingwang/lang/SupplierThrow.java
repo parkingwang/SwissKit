@@ -2,10 +2,9 @@ package com.parkingwang.lang;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
- * @since 1.0
+ * @since 1.0.6
  */
-public interface Transformer<T, R> {
+public interface SupplierThrow<T> {
 
-    R call(T in);
-
+    T call() throws Throwable;
 }

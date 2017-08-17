@@ -4,11 +4,11 @@ package com.parkingwang.lang;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0
  */
-public interface ThrowAction<T> {
+public interface ActionThrow<T> {
 
     T invoke() throws Throwable;
 
-    public abstract class ThrowAction0 implements ThrowAction<Void> {
+    public abstract class Action implements ActionThrow<Void> {
 
         @Override
         public Void invoke() throws Throwable {

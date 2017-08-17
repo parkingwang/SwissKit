@@ -1,20 +1,20 @@
 package com.parkingwang.lang.data;
 
-import com.parkingwang.lang.ArgSupplier;
+import com.parkingwang.lang.SupplierArg;
 
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
- * @since 2.5.0
+ * @since 2.7
  */
-public class ArgThreadLocal<T, A> extends ThreadLocal<T> {
+public class ThreadLocalArg<T, A> extends ThreadLocal<T> {
 
     private final AtomicReference<A> mArg = new AtomicReference<>();
 
-    private final ArgSupplier<T, A> mSupplier;
+    private final SupplierArg<T, A> mSupplier;
 
-    public ArgThreadLocal(ArgSupplier<T, A> supplier) {
+    public ThreadLocalArg(SupplierArg<T, A> supplier) {
         mSupplier = supplier;
     }
 
