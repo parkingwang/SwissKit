@@ -4,15 +4,11 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
- * @since 2.7
+ * @since 2.8.0
  */
-abstract class LazyBase<T> {
+abstract class AbstractLazy<T> implements Present<T> {
 
     private final AtomicReference<T> mValue = new AtomicReference<>(null);
-
-    protected T get(){
-        return getWithArg(null);
-    }
 
     protected T getWithArg(Object arg){
         final T cached = mValue.get();
@@ -28,20 +24,51 @@ abstract class LazyBase<T> {
         }
     }
 
-    public T getPresent() {
-        return mValue.get();
+    @Override
+    public void remove(){
+        mValue.set(null);
     }
 
+    @Override
+    public void set(T value) {
+        throw new UnsupportedOperationException("Not support");
+    }
+
+    @Override
+    public T getPresent() {
+        return getUnchecked();
+    }
+
+    @Override
     public boolean isPresent(){
         return null != mValue.get();
     }
 
+    @Override
     public boolean isNotPresent(){
         return !isPresent();
     }
 
-    public void remove(){
-        mValue.set(null);
+    @Override
+    public T getChecked() {
+        return getWithArg(null);
+    }
+
+    @Override
+    public T getUnchecked() {
+        return mValue.get();
+    }
+
+    @Override
+    public void ifPresent(Consumer<T> consumer) {
+        if (isPresent()){
+            consumer.call(getUnchecked());
+        }
+    }
+
+    @Override
+    public T orElse(T elseValue) {
+        return isPresent() ? getPresent() : elseValue;
     }
 
     ////////

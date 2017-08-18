@@ -40,6 +40,15 @@ final public class Config {
         return !containsName(name);
     }
 
+    public boolean containsNames(Set<String> names){
+        for (String name : names){
+            if (notContainsName(name)){
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
         return mDataMap.toString();

@@ -5,7 +5,7 @@ package com.parkingwang.lang;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 2.7
  */
-public class LazyArg<T, A> extends LazyBase<T> {
+public class LazyArg<T, A> extends AbstractLazy<T> {
 
     private final SupplierArg<T, A> mSupplier;
 
@@ -13,7 +13,7 @@ public class LazyArg<T, A> extends LazyBase<T> {
         this.mSupplier = supplier;
     }
 
-    public T getByArg(A arg){
+    public T getCheckedWithArg(A arg){
         return getWithArg(arg);
     }
 
