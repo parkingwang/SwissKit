@@ -2,6 +2,6 @@
 
 ```gradle
 
-
+compile 'com.parkingwang:swiss:2.8.0'
 
 ```
