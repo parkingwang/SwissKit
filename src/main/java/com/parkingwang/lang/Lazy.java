@@ -5,7 +5,7 @@ package com.parkingwang.lang;
  * @author Yoojia Chen (yoojiachen@gmail.com)
  * @since 1.0.1
  */
-public class Lazy<T> extends LazyBase<T>{
+public class Lazy<T> extends AbstractLazy<T> {
 
     private final Supplier<T> mSupplier;
 
@@ -18,11 +18,6 @@ public class Lazy<T> extends LazyBase<T>{
     @Override
     protected T getNewValueFromSupplier(Object o){
         return mSupplier.call();
-    }
-
-    @Override
-    public T get() {
-        return super.get();
     }
 
     ////////
