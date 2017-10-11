@@ -25,10 +25,10 @@ dependencies {
 ext{
     projVersion = '2.8.0'
     projArtivactId = 'swiss'
-    projName = 'Swiss'
-    projDesc = 'Swiss: A Lightweight Java Lang toolkit library'
-    projURL = "https://github.com/parkingwang/swiss"
-    projVCS = "https://github.com/parkingwang/swiss.git"
+    projName = 'SwissKit'
+    projDesc = 'SwissKit: A Lightweight Java Lang toolkit library'
+    projURL = "https://github.com/parkingwang/SwissKit"
+    projVCS = "https://github.com/parkingwang/SwissKit.git"
 }
 
 apply from: 'publish.gradle'
