@@ -142,4 +142,9 @@ final public class Config {
     public boolean getBoolean(String name) {
         return getBoolean(name, false);
     }
+
+    public Config put(String name, Object value) {
+        mDataMap.put(name, value);
+        return this;
+    }
 }
