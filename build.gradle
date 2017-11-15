@@ -23,9 +23,9 @@ dependencies {
 }
 
 ext{
-    projVersion = '2.8.0'
+    projVersion = '2.8.1'
     projArtivactId = 'swiss'
-    projName = 'Swiss'
+    projName = 'SwissKit'
     projDesc = 'SwissKit: A Lightweight Java Lang toolkit library'
     projURL = "https://github.com/parkingwang/SwissKit"
     projVCS = "https://github.com/parkingwang/SwissKit.git"
