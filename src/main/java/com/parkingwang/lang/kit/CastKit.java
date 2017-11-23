@@ -51,20 +51,22 @@ final public class CastKit {
         if (value instanceof Boolean) {
             return ((Boolean) value);
         }
-        return parseStringTo(value, defaultValue, new Function<String, Boolean>() {
-            @Override
-            public Boolean call(String arg) {
-                return Boolean.valueOf(arg);
-            }
-        }, new Function<Object, Boolean>() {
-            @Override
-            public Boolean call(Object arg) {
-                if (arg instanceof Integer) {
-                    return ((Integer)arg) > 0;
-                }
-                throw new ClassCastException("Object cannot cast to Boolean, object: " + value);
-            }
-        });
+        return parseStringTo(value, defaultValue,
+                new Function<String, Boolean>() {
+                    @Override
+                    public Boolean call(String arg) {
+                        return Boolean.valueOf(arg);
+                    }
+                },
+                new Function<Object, Boolean>() {
+                    @Override
+                    public Boolean call(Object arg) {
+                        if (arg instanceof Integer) {
+                            return ((Integer) arg) > 0;
+                        }
+                        throw new ClassCastException("Object cannot cast to Boolean, object: " + value);
+                    }
+                });
     }
 
     public static Integer castInt(final Object value, final Integer defaultValue) {
@@ -77,19 +79,21 @@ final public class CastKit {
         if (value instanceof Number) {
             return ((Number) value).intValue();
         }
-        return parseStringTo(value, defaultValue, new Function<String, Integer>() {
-            public Integer call(String arg) {
-                return Integer.parseInt(arg);
-            }
-        }, new Function<Object, Integer>() {
-            @Override
-            public Integer call(Object arg) {
-                if (arg instanceof Boolean) {
-                    return ((Boolean) arg) ? 1 : 0;
-                }
-                throw new ClassCastException("Object cannot cast to Integer, object: " + value);
-            }
-        });
+        return parseStringTo(value, defaultValue,
+                new Function<String, Integer>() {
+                    public Integer call(String arg) {
+                        return Integer.parseInt(arg);
+                    }
+                },
+                new Function<Object, Integer>() {
+                    @Override
+                    public Integer call(Object arg) {
+                        if (arg instanceof Boolean) {
+                            return ((Boolean) arg) ? 1 : 0;
+                        }
+                        throw new ClassCastException("Object cannot cast to Integer, object: " + value);
+                    }
+                });
     }
 
     public static Long castLong(final Object value, final Long defaultValue) {
@@ -102,18 +106,20 @@ final public class CastKit {
         if (value instanceof Number) {
             return ((Number) value).longValue();
         }
-        return parseStringTo(value, defaultValue, new Function<String, Long>() {
-            public Long call(String arg) {
-                return Long.parseLong(arg);
-            }
-        }, new Function<Object, Long>() {
-            public Long call(Object arg) {
-                if (arg instanceof Boolean) {
-                    return ((Boolean) arg) ? 1L : 0;
-                }
-                throw new ClassCastException("Object cannot cast to Long, object: " + value);
-            }
-        });
+        return parseStringTo(value, defaultValue,
+                new Function<String, Long>() {
+                    public Long call(String arg) {
+                        return Long.parseLong(arg);
+                    }
+                },
+                new Function<Object, Long>() {
+                    public Long call(Object arg) {
+                        if (arg instanceof Boolean) {
+                            return ((Boolean) arg) ? 1L : 0;
+                        }
+                        throw new ClassCastException("Object cannot cast to Long, object: " + value);
+                    }
+                });
     }
 
     public static Float castFloat(final Object value, final Float defaultValue) {
@@ -126,18 +132,19 @@ final public class CastKit {
         if (value instanceof Number) {
             return ((Number) value).floatValue();
         }
-        return parseStringTo(value, defaultValue, new Function<String, Float>() {
-            public Float call(String arg) {
-                return Float.parseFloat(arg);
-            }
-        }, new Function<Object, Float>() {
-            public Float call(Object arg) {
-                if (arg instanceof Boolean) {
-                    return ((Boolean) arg) ? 1f : 0;
-                }
-                throw new ClassCastException("Object cannot cast to Float, object: " + value);
-            }
-        });
+        return parseStringTo(value, defaultValue,
+                new Function<String, Float>() {
+                    public Float call(String arg) {
+                        return Float.parseFloat(arg);
+                    }
+                }, new Function<Object, Float>() {
+                    public Float call(Object arg) {
+                        if (arg instanceof Boolean) {
+                            return ((Boolean) arg) ? 1f : 0;
+                        }
+                        throw new ClassCastException("Object cannot cast to Float, object: " + value);
+                    }
+                });
     }
 
     public static Double castDouble(final Object value, final Double defaultValue) {
@@ -150,21 +157,26 @@ final public class CastKit {
         if (value instanceof Number) {
             return ((Number) value).doubleValue();
         }
-        return parseStringTo(value, defaultValue, new Function<String, Double>() {
-            public Double call(String arg) {
-                return Double.parseDouble(arg);
-            }
-        }, new Function<Object, Double>() {
-            public Double call(Object arg) {
-                if (arg instanceof Boolean) {
-                    return ((Boolean) arg) ? 1.0 : 0;
-                }
-                throw new ClassCastException("Object cannot cast to Double, object: " + value);
-            }
-        });
+        return parseStringTo(value, defaultValue,
+                new Function<String, Double>() {
+                    public Double call(String arg) {
+                        return Double.parseDouble(arg);
+                    }
+                },
+                new Function<Object, Double>() {
+                    public Double call(Object arg) {
+                        if (arg instanceof Boolean) {
+                            return ((Boolean) arg) ? 1.0 : 0;
+                        }
+                        throw new ClassCastException("Object cannot cast to Double, object: " + value);
+                    }
+                });
     }
 
-    private static <T> T parseStringTo(Object value, T defaultValue, Function<String, T> isAction, Function<Object, T> elseAction) {
+    private static <T> T parseStringTo(Object value,
+                                       T defaultValue,
+                                       Function<String, T> parseAction,
+                                       Function<Object, T> notStringAction) {
         if (value instanceof String) {
             String str = (String) value;
             if (str.length() == 0 || "null".equalsIgnoreCase(str)) {
@@ -173,9 +185,13 @@ final public class CastKit {
             if (str.indexOf(',') != 0) {
                 str = str.replaceAll(",", "");
             }
-            return isAction.call(str);
+            try {
+                return parseAction.call(str);
+            } catch (Exception e) {
+                return defaultValue;
+            }
         }
-        return elseAction.call(value);
+        return notStringAction.call(value);
     }
 
 }

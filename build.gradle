@@ -23,7 +23,7 @@ dependencies {
 }
 
 ext{
-    projVersion = '2.8.0'
+    projVersion = '2.8.1'
     projArtivactId = 'swiss'
     projName = 'Swiss'
     projDesc = 'SwissKit: A Lightweight Java Lang toolkit library'

@@ -19,7 +19,7 @@ public class LazyTest {
             }
         });
 
-        Assert.assertEquals("HAHA", lazy.get());
-        Assert.assertEquals("HAHA", lazy.get());
+        Assert.assertEquals("HAHA", lazy.getChecked());
+        Assert.assertEquals("HAHA", lazy.getChecked());
     }
 }
