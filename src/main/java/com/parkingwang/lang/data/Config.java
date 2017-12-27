@@ -20,7 +20,6 @@ final public class Config {
         this(new HashMap<String, Object>());
     }
 
-
     public void copy(Config src) {
         mDataMap.putAll(src.mDataMap);
     }
@@ -154,7 +153,7 @@ final public class Config {
         return this;
     }
 
-    public Object remove(String nama) {
-        return mDataMap.remove(nama);
+    public Object remove(String name) {
+        return mDataMap.remove(name);
     }
 }
