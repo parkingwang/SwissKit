@@ -5,6 +5,7 @@ import com.parkingwang.lang.Indexed;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -18,6 +19,40 @@ final public class StringKit {
 
     public static boolean isEmpty(CharSequence str) {
         return str == null || str.length() == 0;
+    }
+
+    /**
+     * 给定字符串列表中，任意一个是空时，返回True
+     *
+     * @param array 给定字符串列表
+     * @return 任意一个为空时，返回True；否则返回False表示全部非空。
+     */
+    public static boolean isAnyEmpty(Iterable<CharSequence> array) {
+        for (CharSequence item : array) {
+            if (isEmpty(item)) return true;
+        }
+        return false;
+    }
+
+    public static boolean isAnyEmpty(CharSequence... array) {
+        return isAnyEmpty(Arrays.asList(array));
+    }
+
+    /**
+     * 给定字符串列表中，全部为空时，返回True
+     *
+     * @param array 给定字符串列表
+     * @return 全部一个为空时，返回True；否则返回False表示全部为空。
+     */
+    public static boolean isAllEmpty(Iterable<CharSequence> array) {
+        for (CharSequence item : array) {
+            if (isNotEmpty(item)) return false;
+        }
+        return true;
+    }
+
+    public static boolean isAllEmpty(CharSequence... array) {
+        return isAllEmpty(Arrays.asList(array));
     }
 
     public static boolean isNotEmpty(CharSequence str) {
@@ -99,7 +134,7 @@ final public class StringKit {
     public static <T> String join(Collection<T> resources, final String chars) {
         final StringBuilder buff = new StringBuilder();
         final int maxIndex = resources.size() - 1;
-        ListKit.forEach(resources, new Indexed<T>() {
+        CollectionKit.forEach(resources, new Indexed<T>() {
             @Override public void invoke(int index, T item) {
                 buff.append(item);
                 if (chars.length() > 0 && index < maxIndex) {

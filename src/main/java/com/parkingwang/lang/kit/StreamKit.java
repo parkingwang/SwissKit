@@ -9,7 +9,8 @@ import java.io.*;
 public class StreamKit {
 
     public static void copyAndClose(InputStream in, OutputStream out) throws IOException {
-        try(InputStreamReader reader = new InputStreamReader(in); OutputStreamWriter writer = new OutputStreamWriter(out)){
+        try (InputStreamReader reader = new InputStreamReader(in);
+             OutputStreamWriter writer = new OutputStreamWriter(out)) {
             char[] buffer = new char[1024];
             int read;
             while ((read = reader.read(buffer)) != -1){
