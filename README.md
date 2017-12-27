@@ -99,6 +99,6 @@ progress.show();
 
 ```gradle
 
-compile 'com.parkingwang:swiss:2.8.1'
+compile 'com.parkingwang:swiss:2.8.2'
 
 ```
