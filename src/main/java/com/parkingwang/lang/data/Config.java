@@ -20,8 +20,14 @@ final public class Config {
         this(new HashMap<String, Object>());
     }
 
-    public void copyFrom(Config src) {
+
+    public void copy(Config src) {
         mDataMap.putAll(src.mDataMap);
+    }
+
+    @Deprecated
+    public void copyFrom(Config src) {
+        copy(src);
     }
 
     public boolean isEmpty(){
@@ -146,5 +152,9 @@ final public class Config {
     public Config put(String name, Object value) {
         mDataMap.put(name, value);
         return this;
+    }
+
+    public Object remove(String nama) {
+        return mDataMap.remove(nama);
     }
 }
