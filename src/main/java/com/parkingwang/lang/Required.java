@@ -3,6 +3,7 @@ package com.parkingwang.lang;
 import com.parkingwang.lang.kit.ObjectKit;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
@@ -75,13 +76,33 @@ public final class Required<T> implements Present<T> {
         return mValue;
     }
 
-    public T getAwaitChecked() throws InterruptedException {
+    public T getCheckedAwait() throws InterruptedException {
         mLatch.await();
         return getChecked();
     }
 
-    public T getAwaitUnchecked() throws InterruptedException {
+    public T getCheckedAwait(long timeout, TimeUnit unit) throws InterruptedException {
+        mLatch.await(timeout, unit);
+        return getChecked();
+    }
+
+    public T getUncheckedAwait() throws InterruptedException {
         mLatch.await();
         return getUnchecked();
+    }
+
+    public T getUncheckedAwait(long timeout, TimeUnit unit) throws InterruptedException {
+        mLatch.await(timeout, unit);
+        return getUnchecked();
+    }
+
+    @Deprecated
+    public T getAwaitChecked() throws InterruptedException {
+        return getCheckedAwait();
+    }
+
+    @Deprecated
+    public T getAwaitUnchecked() throws InterruptedException {
+        return getUncheckedAwait();
     }
 }
