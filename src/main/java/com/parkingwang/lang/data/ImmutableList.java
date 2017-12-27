@@ -1,16 +1,9 @@
 package com.parkingwang.lang.data;
 
-import com.parkingwang.lang.kit.ListKit;
+import com.parkingwang.lang.kit.CollectionKit;
 import com.parkingwang.lang.kit.ObjectKit;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * @author Yoojia Chen (yoojiachen@gmail.com)
@@ -67,7 +60,7 @@ public class ImmutableList<E> implements Iterable<E> {
     }
 
     public ArrayList<E> toList(){
-        return ListKit.arrayListOf(mElementData);
+        return CollectionKit.arrayListOf(mElementData);
     }
 
     public E[] toArray() {
@@ -98,8 +91,8 @@ public class ImmutableList<E> implements Iterable<E> {
 
     public ImmutableList<E> concat(ImmutableList<E> src){
         if (src.isNotEmpty()){
-            final List<E> data = ListKit.arrayListOf(mElementData);
-            data.addAll(ListKit.arrayListOf(src.mElementData));
+            final List<E> data = CollectionKit.arrayListOf(mElementData);
+            data.addAll(CollectionKit.arrayListOf(src.mElementData));
             return listOf(data);
         }else{
             return this;
@@ -114,7 +107,7 @@ public class ImmutableList<E> implements Iterable<E> {
             throw new IllegalArgumentException("Illegal arguments: from: " + fromIndex + ", to:" + toIndex);
         }
         if (isNotEmpty()){
-            final E[] data = (E[])ListKit.arrayListOf(mElementData).subList(fromIndex, toIndex).toArray();
+            final E[] data = (E[]) CollectionKit.arrayListOf(mElementData).subList(fromIndex, toIndex).toArray();
             return new ImmutableList<>(data);
         }else{
             return ImmutableList.empty();
